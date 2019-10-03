@@ -10,7 +10,7 @@ const stepMessagePropTypes = {
   ),
 };
 
-const StepMessage = props => {
+export const StepMessage = props => {
   const { header, list, extra, ...otherProps } = props;
 
   return (

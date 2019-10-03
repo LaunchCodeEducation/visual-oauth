@@ -14,7 +14,7 @@ export const stepIconProps = {
   user: {
     name: "user",
     color: "black",
-    label: "User (Browser)",
+    label: "User (Client Site)",
   },
 
   provider: {
