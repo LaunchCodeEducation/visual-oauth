@@ -6,11 +6,16 @@ import Introduction from "./components/Introduction";
 
 function App() {
   return (
-    <Container>
-      <Header size="huge" content="Learn OAuth Step-By-Step" />
+    <Container style={{ margin: "50px" }}>
+      <Header
+        size="huge"
+        textAlign="center"
+        content="Learn OAuth Step-By-Step"
+      />
+
       <Introduction />
 
-      <Divider />
+      <Divider hidden />
 
       <VisualOAuth />
     </Container>
