@@ -1,32 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Icon } from "semantic-ui-react";
+import { Icon, Step } from "semantic-ui-react";
+
+import { stepIconEnum, stepIconProps } from "./StepIcon";
 
 const baseIconProps = {
   size: "massive",
-};
-
-const iconProps = {
-  app: {
-    ...baseIconProps,
-    name: "server",
-    color: "blue",
-    label: "App Server",
-  },
-
-  user: {
-    ...baseIconProps,
-    name: "user",
-    color: "black",
-    label: "User",
-  },
-
-  provider: {
-    ...baseIconProps,
-    name: "server",
-    color: "red",
-    label: "Provider Server",
-  },
 };
 
 const statusProps = {
@@ -39,26 +18,25 @@ const statusProps = {
   true: {
     ...baseIconProps,
     color: "green",
-    name: "check circle outline",
+    name: "check circle",
   },
 
   false: {
     ...baseIconProps,
     color: "red",
     name: "x",
-    bordered: true,
   },
 };
 
 const VisualFlow = props => {
-  const { sourceIcon, targetIcon, stepStatus } = props.icons;
+  const { icons, stepStatus } = props;
 
-  const sourceIconProps = iconProps[sourceIcon];
-  const targetIconProps = iconProps[targetIcon];
   const statusIconProps = statusProps[stepStatus];
+  const sourceIconProps = stepIconProps[icons.sourceIcon];
+  const targetIconProps = stepIconProps[icons.targetIcon];
 
   return (
-    <Step.Group widths={3}>
+    <Step.Group widths={3} fluid>
       <Step>
         <Icon {...sourceIconProps} />
         <Step.Content>
@@ -80,11 +58,9 @@ const VisualFlow = props => {
   );
 };
 
-const iconEnumType = PropTypes.oneOf(["user", "app", "provider"]);
-
 const iconsType = PropTypes.objectOf({
-  sourceIcon: iconEnumType.isRequired,
-  targetIcon: iconEnumType.isRequired,
+  sourceIcon: stepIconEnum.isRequired,
+  targetIcon: stepIconEnum.isRequired,
 });
 
 VisualFlow.propTypes = {
