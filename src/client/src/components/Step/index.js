@@ -9,6 +9,7 @@ const Step = props => {
   const {
     loading,
     stepName,
+    stepNumber,
     flowIcons,
     stepStatus,
     stepDetails,
@@ -19,7 +20,7 @@ const Step = props => {
   return (
     <Grid container centered padded>
       <Divider horizontal section>
-        <Header size="huge" content="Step 1" />
+        <Header size="huge" content={`Step ${stepNumber}`} />
       </Divider>
 
       <Segment loading={loading} style={{ width: "100%" }} padded>

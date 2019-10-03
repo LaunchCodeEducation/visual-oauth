@@ -7,7 +7,7 @@ import CodeSnippet from "./CodeSnippet";
 import BehindTheScenesCode from "./BehindTheScenesCode";
 import { StepDescription, StepInstruction } from "./Step/StepMessage";
 
-//-- provider URL building utils --//
+//-- util functions --//
 
 const envVarExtractor = provider => param => {
   const [providerUpperCase, paramUpperCase] = [provider, param].map(arg =>
@@ -33,7 +33,7 @@ const redirectToProviderAuth = provider => () => {
   window.location.href = `${authEndpoint}?client_id=${clientID}&redirect_uri=${redirectURI}`;
 };
 
-//-- supplementary components --//
+//-- auxiliary components --//
 
 // the provider utils above allow for extension of the tool for multiple providers
 // the auth button can include a "provider" dropdown that can link to that provider's docs to display the (near identical) similarities across provider flow implementations
@@ -49,6 +49,8 @@ const AuthButton = props => {
     />
   );
 };
+
+//-- step components --//
 
 const AuthStepDescription = () => {
   const header = "User authenticates and authorizes through the Provider";
@@ -194,6 +196,7 @@ const AuthButton = () => (
 
 const AuthenticateAndAuthorizeStep = () => {
   const stepProps = {
+    stepNumber: 1,
     stepName: "Authentication & Authorization",
     flowIcons: {
       sourceIcon: "user",
