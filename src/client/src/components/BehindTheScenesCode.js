@@ -6,7 +6,7 @@ const BehindTheScenesCode = props => {
   const { description, snippetContent } = props;
 
   return (
-    <Container style={{ width: "90%" }}>
+    <Container style={{ minWidth: "80%" }}>
       <Card fluid>
         <Card.Content>
           <Card.Header>Behind the Scenes Code</Card.Header>
