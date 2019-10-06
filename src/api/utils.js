@@ -1,11 +1,5 @@
-const express = require("express");
 const axios = require("axios").default;
 const queryString = require("querystring");
-
-const app = express();
-
-// JSON middleware that turns incoming request bodies into a JS object on req.body
-app.use(express.json());
 
 const getAccessTokenByAuthCode = code => {
   const queryStringParams = {
@@ -24,17 +18,6 @@ const getAccessTokenByAuthCode = code => {
   });
 };
 
-const authCodeFlowHandler = async (req, res) => {
-  const { code } = req.body;
-
-  const response = await getAccessTokenByAuthCode(code).catch(console.error);
-
-  console.log(response.data);
-
-  return res.sendStatus(response ? 200 : 500);
+module.exports = {
+  getAccessTokenByAuthCode,
 };
-
-app.post("/oauth", authCodeFlowHandler);
-
-const PORT = process.env.PORT || 8008;
-app.listen(PORT, () => console.log(`app server listening on port ${PORT}`));
