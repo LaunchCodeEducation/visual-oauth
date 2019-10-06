@@ -1,17 +1,17 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Grid, Header, Divider, Segment } from "semantic-ui-react";
+import { Grid, Header, Divider } from "semantic-ui-react";
 
 import StepVisualFlow from "./StepVisualFlow";
 import TogglingContent from "../TogglingContent";
+import { nodeOrElementType } from "../../utils";
 
 const Step = props => {
   const {
-    loading,
-    stepName,
     stepNumber,
     flowIcons,
     stepStatus,
+    statusLabel,
     stepDetails,
     stepDescription,
     stepInstruction,
@@ -23,35 +23,44 @@ const Step = props => {
         <Header size="huge" content={`Step ${stepNumber}`} />
       </Divider>
 
-      <Segment loading={loading} style={{ width: "100%" }} padded>
-        <Header size="medium" content={stepName} />
-
-        <TogglingContent buttonLabel="Instructions" content={stepInstruction} />
-
-        <StepVisualFlow icons={flowIcons} stepStatus={stepStatus} />
-
-        <TogglingContent buttonLabel="Description">
-          {stepDescription}
-          <TogglingContent buttonLabel="Details" content={stepDetails} />
-        </TogglingContent>
-      </Segment>
+      <Grid.Row columns={3}>
+        <Grid.Column
+          width={5}
+          verticalAlign="middle"
+          children={
+            <StepVisualFlow
+              icons={flowIcons}
+              stepStatus={stepStatus}
+              statusLabel={statusLabel}
+            />
+          }
+        />
+        <Grid.Column width={11} verticalAlign="middle">
+          <TogglingContent buttonLabel="Description">
+            {stepDescription}
+            <TogglingContent buttonLabel="Details" content={stepDetails} />
+          </TogglingContent>
+          <TogglingContent
+            buttonLabel="Instructions"
+            content={stepInstruction}
+          />
+        </Grid.Column>
+      </Grid.Row>
     </Grid>
   );
 };
 
 Step.defaultProps = {
-  loading: false,
   stepStatus: null,
 };
 
 Step.propTypes = {
-  loading: PropTypes.bool,
   stepStatus: PropTypes.bool,
-  stepName: PropTypes.string.isRequired,
+  statusLabel: PropTypes.string.isRequired,
+  stepDetails: nodeOrElementType.isRequired,
+  stepDescription: nodeOrElementType.isRequired,
+  stepInstruction: nodeOrElementType.isRequired,
   flowIcons: StepVisualFlow.iconsType.isRequired,
-  stepDetails: PropTypes.oneOfType([PropTypes.node, PropTypes.element]),
-  stepDescription: PropTypes.oneOfType([PropTypes.node, PropTypes.element]),
-  stepInstruction: PropTypes.oneOfType([PropTypes.node, PropTypes.element]),
 };
 
 export default Step;
