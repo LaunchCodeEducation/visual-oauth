@@ -4,12 +4,17 @@
   "description": "LaunchCode GIS / DevOps W9D4 OAuth studio",
   "main": "src/api",
   "scripts": {
-    "test": "npm test"
+    "test": "npm test",
+    "env:dev": "env $(< .env)",
+    "dev": "npm run env:dev -- nodemon index.js"
   },
   "author": "the-vampiire",
   "license": "MIT",
   "dependencies": {
     "axios": "^0.19.0",
     "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.3"
   }
 }
