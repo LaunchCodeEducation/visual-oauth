@@ -1,17 +1,17 @@
 import React from "react";
 
-import AuthenticateAndAuthorizeStep from "./1-AuthenticateAndAuthorize";
-import RedirectStep from "./2-Redirect";
-import SendAuthCodeToAppStep from "./3-SendAuthCodeToApp";
-import ExchangeCodeForTokensStep from "./4-ExchangeCodeForTokens";
+import Step1 from "./1-AuthenticateAndAuthorize";
+import Step2 from "./2-Redirect";
+import Step3 from "./3-SendAuthCodeToBackend";
+import Step4 from "./4-ExchangeCodeForTokens";
 
 const VisualOAuth = () => {
   return (
     <main>
-      <AuthenticateAndAuthorizeStep />
-      <RedirectStep />
-      <SendAuthCodeToAppStep />
-      <ExchangeCodeForTokensStep />
+      <Step1 />
+      <Step2 />
+      <Step3 />
+      <Step4 />
     </main>
   );
 };
