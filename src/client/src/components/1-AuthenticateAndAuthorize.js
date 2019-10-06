@@ -1,5 +1,5 @@
 import React from "react";
-import { List, Header, Button, Divider } from "semantic-ui-react";
+import { Header, Button, Divider } from "semantic-ui-react";
 
 import Step from "./Step";
 import stepIcons from "./Step/StepIcon";
@@ -37,7 +37,7 @@ const redirectToProviderAuth = provider => () => {
 
 // the provider utils above allow for extension of the tool for multiple providers
 // the auth button can include a "provider" dropdown that can link to that provider's docs to display the (near identical) similarities across provider flow implementations
-// the chosen provider will need to be accounted for when sending the auth code to the app server so it knows which credentials / format to exchange with the provider
+// the chosen provider will need to be accounted for when sending the auth code to the backend server so it knows which credentials / format to exchange with the provider
 const AuthButton = props => {
   const { provider } = props;
 
@@ -55,66 +55,42 @@ const AuthButton = props => {
 const AuthStepDescription = () => {
   const header = "User authenticates and authorizes through the Provider";
 
-  const extra = (
-    <List divided relaxed="very" style={{ textAlign: "left" }}>
-      <List.Item
-        content={
-          <>
-            The {stepIcons.user.inline} follows a link to the{" "}
-            {stepIcons.provider.inline} page where they <b>authenticate</b>{" "}
-            their identity
-          </>
-        }
-      />
-      <List.Item
-        content={
-          <>
-            The link includes querystring parameters with the{" "}
-            {stepIcons.app.inlineCustom("App's")} <b>client ID</b> and{" "}
-            <b>redirect URI</b>
-          </>
-        }
-      />
-      <List.Item
-        content={
-          <>
-            These parameters are used to "brand" the link so the{" "}
-            {stepIcons.provider.inline} knows which {stepIcons.app.inline}{" "}
-            permissions are being authorized
-          </>
-        }
-      />
-      <List.Item
-        content={
-          <>
-            The {stepIcons.user.inline} chooses to <b>authorize</b> the{" "}
-            {stepIcons.app.inlineCustom("App's")} permission requests by
-            accepting them on the {stepIcons.provider.inline} page
-          </>
-        }
-      />
-      <List.Item
-        content={
-          <>
-            The {stepIcons.provider.inline} then <b>redirects (step 2)</b> the{" "}
-            {stepIcons.user.inline} to the <b>redirect URI</b> location
-          </>
-        }
-      />
-      <List.Item
-        content={
-          <>
-            By using OAuth the {stepIcons.user.inline} is able to{" "}
-            <b>authenticate</b> and <b>authorize</b> the access / management of
-            their data <b>without exposing their login credentials</b> to the{" "}
-            {stepIcons.app.inline}
-          </>
-        }
-      />
-    </List>
-  );
+  const list = [
+    <>
+      The {stepIcons.frontend.inlineCustom("User (through the Front-end)")}{" "}
+      follows a link to the {stepIcons.provider.inline} page where they begin by{" "}
+      <b>authenticating</b> their identity
+    </>,
+    <>
+      The link includes querystring parameters holding the{" "}
+      {stepIcons.backend.inlineCustom("App's (Back-end)")} <b>client ID</b> and{" "}
+      <b>redirect URI</b>
+    </>,
+    <>
+      These parameters are used so the {stepIcons.provider.inline} knows which{" "}
+      {stepIcons.backend.inlineCustom("App (Back-end)")} is being authorized (
+      <b>client ID</b>) and where to send the User (<b>redirect URI</b>) after
+      success
+    </>,
+    <>
+      The {stepIcons.frontend.inlineCustom("User (through the Front-end)")}{" "}
+      chooses to <b>authorize</b> the{" "}
+      {stepIcons.backend.inlineCustom("App's (Back-end)")} permission requests
+      by accepting them on the {stepIcons.provider.inline} page
+    </>,
+    <>
+      The {stepIcons.provider.inline} then <b>redirects (step 2)</b> to the{" "}
+      {stepIcons.frontend.inline} at the <b>redirect URI</b> location
+    </>,
+    <>
+      By using OAuth the User is able to <b>authorize</b> the access /
+      management of their {stepIcons.provider.inline} data{" "}
+      <b>without exposing their login credentials</b> to the{" "}
+      {stepIcons.backend.inlineCustom("App")}
+    </>,
+  ];
 
-  return <StepDescription header={header} extra={extra} />;
+  return <StepDescription header={header} list={list} />;
 };
 
 const AuthStepInstruction = () => {
@@ -138,8 +114,9 @@ const AuthStepInstruction = () => {
 const AuthStepDetails = () => {
   const description = (
     <span>
-      A button with a click event handler that sends the {stepIcons.user.inline}{" "}
-      to the {stepIcons.provider.inline} page
+      A button with a click event handler that sends the{" "}
+      {stepIcons.frontend.inlineCustom("User (through the Front-end)")} to the{" "}
+      {stepIcons.provider.inline} page
     </span>
   );
 
@@ -197,9 +174,10 @@ const AuthButton = () => (
 const AuthenticateAndAuthorizeStep = () => {
   const stepProps = {
     stepNumber: 1,
+    statusLabel: "Follow Link",
     stepName: "Authentication & Authorization",
     flowIcons: {
-      sourceIcon: "user",
+      sourceIcon: "frontend",
       targetIcon: "provider",
     },
     stepDetails: <AuthStepDetails />,

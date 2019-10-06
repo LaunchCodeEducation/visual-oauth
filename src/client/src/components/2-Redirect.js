@@ -10,39 +10,13 @@ import {
   Divider,
 } from "semantic-ui-react";
 
+import { extractQsParams } from "../utils";
+
 import Step from "./Step";
 import stepIcons from "./Step/StepIcon";
 import CodeSnippet from "./CodeSnippet";
 import BehindTheScenesCode from "./BehindTheScenesCode";
-import {
-  StepMessage,
-  StepDescription,
-  StepInstruction,
-} from "./Step/StepMessage";
-
-//-- utility functions --//
-
-const shapeQsParams = querystring => {
-  // strip the leading '?' character
-  // leaving only a param pairs string 'key=value&key2=value2&...'
-  const paramPairsString = querystring.replace("?", "");
-
-  // split the param pairs string into an array of individual 'key=value' string pairs
-  // then reduce them into an object of { key: value, ... } form
-  return paramPairsString.split("&").reduce((paramsObject, paramPairString) => {
-    const [key, value] = paramPairString.split("=");
-
-    return { ...paramsObject, [key]: value };
-  }, {});
-};
-
-const extractQsParams = () => {
-  // just the querystring itself, including the leading '?' character
-  const querystring = window.location.search;
-
-  // empty object so downstream use isnt broken if no qs is present
-  return querystring ? shapeQsParams(querystring) : {};
-};
+import { StepDescription, StepInstruction } from "./Step/StepMessage";
 
 // StepIconFlow expects: null (neutral state), true (success), false (failure)
 // authCode may be: null (default, neutral), a string (success), undefined (failure)
@@ -64,8 +38,7 @@ const CheckRedirectSuccessButton = props => {
 
   return (
     <Button
-      basic
-      color="blue"
+      color="grey"
       content="Check for Authorization Code"
       onClick={() => checkForAuthCode(setAuthCode)}
     />
@@ -115,85 +88,75 @@ const AuthCodeDisplayWindow = props => {
 //-- step components --//
 
 const RedirectStepDescription = () => {
-  const header = "Provider redirects User with an authorization code";
+  const authCodeHeader = "Provider creates an authorization code";
 
-  const extra = (
-    <List divided relaxed="very" style={{ textAlign: "left" }}>
-      <List.Item
-        content={
-          <>
-            After the {stepIcons.user.inline} <b>authorizes</b> the{" "}
-            {stepIcons.app.inline} the {stepIcons.provider.inline} generates a
-            random (temporary) token called an <b>authorization code</b>
-          </>
-        }
-      />
-      <List.Item
-        content={
-          <>
-            The {stepIcons.provider.inline} then stores this{" "}
-            <b>authorization code</b> and associates it with the{" "}
-            <b>client ID</b> of the {stepIcons.app.inline}
-          </>
-        }
-      />
+  const authCodeList = [
+    <>
+      After the User <b>authorizes</b> the{" "}
+      {stepIcons.backend.inlineCustom("App (Back-end)")} the{" "}
+      {stepIcons.provider.inline} generates a string called an{" "}
+      <b>authorization code</b>
+    </>,
 
-      <List.Item
-        content={
-          <>
-            Later, the {stepIcons.app.inline} will use this{" "}
-            <b>authorization code</b> along with its <b>client ID and secret</b>{" "}
-            to <b>authenticate</b> itself with the {stepIcons.provider.inline}{" "}
-            and complete the OAuth flow (this is discussed in more detail in
-            step 4)
-          </>
-        }
-      />
-      <List.Item
-        content={
-          <>
-            After generating the <b>authorization code</b> the{" "}
-            {stepIcons.provider.inline} redirects the {stepIcons.user.inline} to
-            the <b>redirect URI</b> (client site)
-          </>
-        }
-      />
-      <List.Item
-        content={
-          <>
-            The {stepIcons.provider.inline} injects the{" "}
-            <b>authorization code</b> as a querystring parameter (
-            <code>?code=XXX</code>) so it is available to the client site (
-            {stepIcons.user.inline}) after redirection
-          </>
-        }
-      />
-      <List.Item
-        content={
-          <>
-            In this step the client site ({stepIcons.user.inline}) is
-            responsible for extracting this <b>authorization code</b> from the
-            URL so that it can be sent in a request to the{" "}
-            {stepIcons.app.inlineCustom("App Server")} (step 3)
-          </>
-        }
-      />
-      <List.Item
-        content={
-          <>
-            <b>This is one of the most critical steps of the flow.</b> Because
-            the client site ({stepIcons.user.inline}),{" "}
-            {stepIcons.provider.inline} and {stepIcons.app.inline} are all
-            separated from each other the <b>authorization code</b> is used to
-            securely confirm that the authorization permissions have been
-            granted
-          </>
-        }
-      />
-    </List>
+    <>
+      The <b>authorization code</b> is a temporary token that uniquely
+      identifies the permissions that the User granted to the{" "}
+      {stepIcons.backend.inlineCustom("App (Back-end)")}
+    </>,
+
+    <>
+      The {stepIcons.provider.inline} saves this <b>authorization code</b> with
+      the <b>client ID</b> of the{" "}
+      {stepIcons.backend.inlineCustom("App (Back-end)")} so it knows which App
+      is being <b>authorized</b> (discussed in step 4)
+    </>,
+
+    <>
+      The {stepIcons.provider.inline} appends the <b>authorization code</b> as a
+      querystring parameter (<code>?code=XXX</code>) onto the{" "}
+      <b>redirect URI</b> so it is available to the {stepIcons.frontend.inline}{" "}
+      after redirection
+    </>,
+  ];
+
+  const redirectHeader =
+    "Provider redirects to the Front-end with the authorization code";
+
+  const redirectList = [
+    <>
+      The {stepIcons.provider.inline} redirects to the{" "}
+      {stepIcons.frontend.inline} at the <b>redirect URI</b> (with the{" "}
+      <b>authorization code</b> appended)
+    </>,
+
+    <>
+      In this step the {stepIcons.frontend.inline} code is responsible for
+      extracting this <b>authorization code</b> from the URL so that it can be
+      sent in a request to the {stepIcons.backend.inline} (discussed in step 3)
+    </>,
+
+    <>
+      Recall that the {stepIcons.frontend.inline}, {stepIcons.backend.inline}{" "}
+      and
+      {stepIcons.provider.inline} are all separated from each other across the
+      internet
+    </>,
+
+    <>
+      The <b>authorization code</b> is used to transport proof that the
+      authorization permissions have been granted from the{" "}
+      {stepIcons.frontend.inlineCustom("Front-end (User)")} to the{" "}
+      {stepIcons.backend.inline} where it will be used in the next steps
+    </>,
+  ];
+
+  // return <StepDescription header={header} list={list} />;
+  return (
+    <>
+      <StepDescription header={authCodeHeader} list={authCodeList} />
+      <StepDescription header={redirectHeader} list={redirectList} />
+    </>
   );
-
-  return <StepDescription header={header} extra={extra} />;
 };
 
 const RedirectStepInstruction = props => {
@@ -201,8 +164,8 @@ const RedirectStepInstruction = props => {
 
   const list = [
     "Click the button below to check for and retrieve the authorization code",
-    "If step 1 was successful this code will be present as a querystring parameter ('?code=XXX') in the URL",
-    "After extracting the code parameter you can view it below",
+    "If step 1 was successful this code will be present as a querystring parameter (?code=XXX) in the URL",
+    "You can see the original querystring in your URL bar and the code itself below after it has been extracted",
     "Note that the authorization code has an expiration (typically 5-10 minutes) determined by the Provider",
     "If steps 3 and 4 fail due to an expired code you can simply refresh the page and start at step 1 again",
     "If you refresh and start over you may not see the permission dialog on the Provider page (because they were already granted before) and instead will be immediately redirected",
@@ -222,8 +185,8 @@ const RedirectStepInstruction = props => {
 const RedirectBehindTheScenes = () => {
   const description = (
     <span style={{ textAlign: "left" }}>
-      The client site ({stepIcons.user.inline}) extracts the querystring
-      parameters when the redirect page is loaded
+      The {stepIcons.frontend.inline} extracts the querystring
+      <code>code</code> parameter when the redirect page is loaded
     </span>
   );
 
@@ -321,9 +284,13 @@ document.addEventListener('DOMContentLoaded', () => {
   );
 };
 
-const RedirectStepDetails = () => {
-  // TODO: add message about the flow difference between separate App client / server and an App that serves its own static client
+// TODO: add message about the flow difference between single server (static client / SSR) vs multi server (SPA/MPA + API)
+const RedirectStepNotes = () => {
+  const header = "Single Server vs Multi-Server";
+};
 
+const RedirectStepDetails = () => {
+  // TODO: add single vs multi note in details section
   return <RedirectBehindTheScenes />;
 };
 
@@ -332,10 +299,11 @@ const RedirectStep = () => {
 
   const stepProps = {
     stepNumber: 2,
+    statusLabel: "Redirect With Code",
     stepName: "Redirect & Authorization Code",
     flowIcons: {
       sourceIcon: "provider",
-      targetIcon: "user",
+      targetIcon: "frontend",
     },
     stepStatus: getStepStatus(authCode),
     stepDetails: <RedirectStepDetails />,
