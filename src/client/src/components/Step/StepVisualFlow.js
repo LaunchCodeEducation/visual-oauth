@@ -4,55 +4,28 @@ import { Icon, Step } from "semantic-ui-react";
 
 import { stepIconEnum, stepIconProps } from "./StepIcon";
 
-const baseIconProps = {
-  size: "massive",
-};
-
-const statusProps = {
-  null: {
-    ...baseIconProps,
-    color: "black",
-    name: "long arrow alternate right",
-  },
-
-  true: {
-    ...baseIconProps,
-    color: "green",
-    name: "check circle",
-  },
-
-  false: {
-    ...baseIconProps,
-    color: "red",
-    name: "x",
-  },
-};
-
 const VisualFlow = props => {
-  const { icons, stepStatus } = props;
+  const { icons, stepStatus, statusLabel } = props;
 
-  const statusIconProps = statusProps[stepStatus];
   const sourceIconProps = stepIconProps[icons.sourceIcon];
   const targetIconProps = stepIconProps[icons.targetIcon];
+  const statusIconProps = stepIconProps.status[stepStatus];
 
   return (
-    <Step.Group widths={3} fluid>
+    <Step.Group vertical>
       <Step>
         <Icon {...sourceIconProps} />
-        <Step.Content>
-          <Step.Title>{sourceIconProps.label}</Step.Title>
-        </Step.Content>
+        <Step.Content title={sourceIconProps.label} />
       </Step>
 
-      <Step>
+      <Step active={stepStatus}>
         <Icon {...statusIconProps} />
+        <Step.Content title={statusLabel} />
       </Step>
 
       <Step>
         <Icon {...targetIconProps} />
-        <Step.Content>
-          <Step.Title>{targetIconProps.label}</Step.Title>
-        </Step.Content>
+        <Step.Content title={targetIconProps.label} />
       </Step>
     </Step.Group>
   );
