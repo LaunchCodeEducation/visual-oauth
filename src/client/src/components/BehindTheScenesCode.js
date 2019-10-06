@@ -2,6 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Card, Container } from "semantic-ui-react";
 
+import { nodeOrElementType } from "../utils";
+
 const BehindTheScenesCode = props => {
   const { description, snippetContent } = props;
 
@@ -19,9 +21,8 @@ const BehindTheScenesCode = props => {
 };
 
 BehindTheScenesCode.propTypes = {
+  description: nodeOrElementType.isRequired,
   snippetContent: PropTypes.element.isRequired,
-  description: PropTypes.oneOfType([PropTypes.element, PropTypes.node])
-    .isRequired,
 };
 
 export default BehindTheScenesCode;
