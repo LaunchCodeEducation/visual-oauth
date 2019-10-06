@@ -11,9 +11,10 @@ const TogglingContent = props => {
       <Accordion>
         {trigger ? (
           <Accordion.Title
-            content={trigger}
             onClick={() => setContentVisibility(!contentVisible)}
-          />
+          >
+            {trigger}
+          </Accordion.Title>
         ) : (
           <Accordion.Title>
             <Button
