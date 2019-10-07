@@ -1,8 +1,6 @@
-TODO: copy over Introduction section
-
 # Visual OAuth
 
-A tool to learn about OAuth in a step-by-step visual environment.
+A tool to learn about OAuth in a step-by-step interactive environment.
 
 # Usage
 

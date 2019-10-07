@@ -1,7 +1,7 @@
 {
   "name": "visual-oauth",
   "version": "0.0.1",
-  "description": "A tool for visualizing the most common (authorization code) OAuth flow in a step-by-step interactive client. Either through a client served statically or with distinct client and API",
+  "description": "A tool for visualizing the most common (authorization code grant) OAuth flow in a step-by-step interactive process",
   "scripts": {
     "env:load": "env $(< .env.shared)",
     "env:create": "bash create-env-files.sh",

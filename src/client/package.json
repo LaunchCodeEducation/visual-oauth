@@ -2,9 +2,10 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
+  "description": "front-end client for Visual Oauth tool",
   "environment": {
     "REACT_APP_API_DOMAIN": "hosted / local API domain address",
-    "REACT_APP_GITHUB_AUTH_ENDPOINT": "GitHub OAuth authorization endpoint (must include client_id, redirect_uri and scope qs params"
+    "REACT_APP_GITHUB_AUTH_ENDPOINT": "GitHub OAuth authorization endpoint (must include client_id, redirect_uri and scope qs params)"
   },
   "dependencies": {
     "react": "^16.10.1",
