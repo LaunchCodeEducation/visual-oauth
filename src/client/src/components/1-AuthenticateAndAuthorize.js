@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Header, Button, Divider } from "semantic-ui-react";
 
 import Step from "./Step";
@@ -9,28 +10,12 @@ import { StepDescription, StepInstruction } from "./Step/StepMessage";
 
 //-- util functions --//
 
-const envVarExtractor = provider => param => {
-  const [providerUpperCase, paramUpperCase] = [provider, param].map(arg =>
-    arg.toUpperCase(),
-  );
-
-  return process.env[`REACT_APP_${providerUpperCase}_${paramUpperCase}`];
-};
-
-const getOAuthParams = provider => {
-  const getProviderParam = envVarExtractor(provider);
-
-  return {
-    clientID: getProviderParam("client_id"),
-    redirectURI: getProviderParam("redirect_url"),
-    authEndpoint: getProviderParam("auth_endpoint"),
-  };
-};
+const getAuthEndpoint = provider =>
+  // ensure uppercase
+  process.env[`REACT_APP_${provider.toUpperCase()}_AUTH_ENDPOINT`];
 
 const redirectToProviderAuth = provider => () => {
-  const { authEndpoint, clientID, redirectURI } = getOAuthParams(provider);
-
-  window.location.href = `${authEndpoint}?client_id=${clientID}&redirect_uri=${redirectURI}`;
+  window.location.href = getAuthEndpoint(provider);
 };
 
 //-- auxiliary components --//
@@ -50,6 +35,13 @@ const AuthButton = props => {
   );
 };
 
+AuthButton.propTypes = {
+  // !! register providers in this enum list
+  // add REACT_APP_PROVIDER_AUTH_ENDPOINT entry to .env file
+  // must be a complete endpoint including qs params (client id, redirect, scopes etc)
+  provider: PropTypes.oneOf(["github"]),
+};
+
 //-- step components --//
 
 const AuthStepDescription = () => {
@@ -59,24 +51,23 @@ const AuthStepDescription = () => {
     <>
       The {stepIcons.frontend.inlineCustom("User (through the Front-end)")}{" "}
       follows a link to the {stepIcons.provider.inline} page where they begin by{" "}
-      <b>authenticating</b> their identity
+      <b>authenticating</b> their identity with their login credentials
     </>,
     <>
       The link includes querystring parameters holding the{" "}
       {stepIcons.backend.inlineCustom("App's (Back-end)")} <b>client ID</b> and{" "}
-      <b>redirect URI</b>
+      <b>redirect URI</b> (<code>?client_id=XXX&amp;redirect_uri=YYY</code>)
     </>,
     <>
       These parameters are used so the {stepIcons.provider.inline} knows which{" "}
-      {stepIcons.backend.inlineCustom("App (Back-end)")} is being authorized (
+      {stepIcons.backend.inlineCustom("App")} is being authorized (
       <b>client ID</b>) and where to send the User (<b>redirect URI</b>) after
       success
     </>,
     <>
-      The {stepIcons.frontend.inlineCustom("User (through the Front-end)")}{" "}
-      chooses to <b>authorize</b> the{" "}
-      {stepIcons.backend.inlineCustom("App's (Back-end)")} permission requests
-      by accepting them on the {stepIcons.provider.inline} page
+      The User chooses to <b>authorize</b> the{" "}
+      {stepIcons.backend.inlineCustom("App's")} permission requests by accepting
+      them on the {stepIcons.provider.inline} page
     </>,
     <>
       The {stepIcons.provider.inline} then <b>redirects (step 2)</b> to the{" "}
@@ -104,14 +95,14 @@ const AuthStepInstruction = () => {
   const extra = (
     <>
       <Divider hidden />
-      <AuthButton />
+      <AuthButton provider="github" />
     </>
   );
 
   return <StepInstruction list={list} extra={extra} />;
 };
 
-const AuthStepDetails = () => {
+const AuthStepCode = () => {
   const description = (
     <span>
       A button with a click event handler that sends the{" "}
@@ -174,13 +165,13 @@ const AuthButton = () => (
 const AuthenticateAndAuthorizeStep = () => {
   const stepProps = {
     stepNumber: 1,
-    statusLabel: "Follow Link",
+    statusLabel: "Redirect with Client ID",
     stepName: "Authentication & Authorization",
     flowIcons: {
       sourceIcon: "frontend",
       targetIcon: "provider",
     },
-    stepDetails: <AuthStepDetails />,
+    stepCode: <AuthStepCode />,
     stepDescription: <AuthStepDescription />,
     stepInstruction: <AuthStepInstruction />,
   };
