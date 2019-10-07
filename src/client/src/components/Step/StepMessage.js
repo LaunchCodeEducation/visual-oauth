@@ -5,7 +5,7 @@ import { List, Message, Divider } from "semantic-ui-react";
 import { nodeOrElementType, nodeOrElementListType } from "../../utils";
 
 export const StepMessageList = props => {
-  const { list, bulleted } = props;
+  const { list, bulleted, headerKey } = props;
 
   const listProps = bulleted
     ? { bulleted: true }
@@ -13,8 +13,8 @@ export const StepMessageList = props => {
 
   return (
     <List {...listProps} style={{ textAlign: "left" }}>
-      {list.map(content => (
-        <List.Item content={content} />
+      {list.map((content, index) => (
+        <List.Item key={`${headerKey}-${index}`} content={content} />
       ))}
     </List>
   );
@@ -22,14 +22,15 @@ export const StepMessageList = props => {
 
 StepMessageList.propTypes = {
   bulleted: PropTypes.bool,
+  headerKey: PropTypes.string.isRequired,
   list: nodeOrElementListType.isRequired,
 };
 
 const stepMessagePropTypes = {
   header: PropTypes.string,
+  extra: nodeOrElementType,
   list: nodeOrElementListType,
   bulletedList: PropTypes.bool,
-  extra: nodeOrElementType.isRequired,
 };
 
 export const StepMessage = props => {
@@ -39,7 +40,13 @@ export const StepMessage = props => {
     <Message {...otherProps}>
       <Message.Header content={header} />
       <Divider />
-      {list && <StepMessageList list={list} bulleted={bulletedList} />}
+      {list && (
+        <StepMessageList
+          list={list}
+          headerKey={header}
+          bulleted={bulletedList}
+        />
+      )}
       {extra}
     </Message>
   );
