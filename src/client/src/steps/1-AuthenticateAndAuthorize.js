@@ -2,11 +2,14 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Header, Button, Divider } from "semantic-ui-react";
 
-import Step from "./Step";
-import stepIcons from "./Step/StepIcon";
-import CodeSnippet from "./CodeSnippet";
-import BehindTheScenesCode from "./BehindTheScenesCode";
-import { StepDescription, StepInstruction } from "./Step/StepMessage";
+import Step from "../components/Step";
+import stepIcons from "../components/Step/StepIcon";
+import CodeSnippet from "../components/CodeSnippet";
+import BehindTheScenesCode from "../components/BehindTheScenesCode";
+import {
+  StepDescription,
+  StepInstruction,
+} from "../components/Step/StepMessage";
 
 //-- util functions --//
 

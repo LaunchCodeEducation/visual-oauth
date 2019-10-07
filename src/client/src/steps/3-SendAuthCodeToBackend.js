@@ -1,25 +1,28 @@
 import React, { useState } from "react";
-import { Card, Grid, Button, Divider, Message } from "semantic-ui-react";
+import { Button, Divider, Message } from "semantic-ui-react";
 
 import { extractQsParams } from "../utils";
 
-import Step from "./Step";
-import stepIcons from "./Step/StepIcon";
-import CodeSnippet from "./CodeSnippet";
-import BehindTheScenesCode from "./BehindTheScenesCode";
-import { TogglingRequestResponseCards } from "./RequestResponseCards";
-import { StepDescription, StepInstruction } from "./Step/StepMessage";
+import Step from "../components/Step";
+import stepIcons from "../components/Step/StepIcon";
+import CodeSnippet from "../components/CodeSnippet";
+import BehindTheScenesCode from "../components/BehindTheScenesCode";
+import { TogglingRequestResponseCards } from "../components/RequestResponseCards";
+import {
+  StepDescription,
+  StepInstruction,
+} from "../components/Step/StepMessage";
 
-const getAccessToken = async (state, setState) => {
-  const tokenEndpoint = `${process.env.REACT_APP_API_DOMAIN}/oauth/access_token`;
+const sendAuthCode = async (state, setState) => {
+  const codeEndpoint = `${process.env.REACT_APP_API_DOMAIN}/oauth/code`;
 
-  const response = await fetch(tokenEndpoint, {
+  const response = await fetch(codeEndpoint, {
     method: "POST",
     body: JSON.stringify({ code: state.authCode }),
     headers: {
       "Content-Type": "application/json",
     },
-  }).catch(() =>
+  }).catch(error =>
     setState({
       ...state,
       stepStatus: false,
@@ -40,7 +43,7 @@ const getAccessToken = async (state, setState) => {
   });
 };
 
-const GetAccessTokenButton = props => {
+const SendAuthCodeButton = props => {
   const { authCode } = props.state;
 
   return (
@@ -49,32 +52,27 @@ const GetAccessTokenButton = props => {
       disabled={!authCode}
       content={
         authCode
-          ? "Exchange Authorization Code for Access Token"
+          ? "Send Authorization Code to Back-end"
           : "No Authorization Code Found (go to Step 1)"
       }
-      onClick={() => getAccessToken(props.state, props.setState)}
+      onClick={() => sendAuthCode(props.state, props.setState)}
     />
   );
 };
 
 const StepRequestResponseCards = props => {
   const { responseBody, responseStatusCode } = props;
-
-  const { sent, received, error } = responseBody;
+  const { error, received } = responseBody;
 
   const requestData = {
-    requestBody: sent,
-    meta: (
-      <span>
-        sent from the {stepIcons.backend.inlineCustom("App (Back-end)")}
-      </span>
-    ),
+    requestBody: received,
+    meta: <span>sent from the {stepIcons.frontend.inline}</span>,
   };
 
   const responseData = {
     responseStatusCode,
-    responseBody: error || received,
-    meta: <span>sent from the {stepIcons.provider.inline}</span>,
+    responseBody: { error, received },
+    meta: <span>sent from the {stepIcons.backend.inline}</span>,
   };
 
   return (
@@ -85,21 +83,18 @@ const StepRequestResponseCards = props => {
   );
 };
 
-const ExchangeCodeForTokenStepInstructions = props => {
+const SendAuthCodeStepInstructions = props => {
   const { state } = props;
   const instructions = [
     "Click the button below to send the authorization code to the back-end",
     "You can then view what the front-end sent in its request and what the back-end sent in its response",
     "If the button is disabled then an authorization code is unavailable in the URL and you will need to restart at step 1",
-    "Note that the authorization code has an expiration (typically 5-10 minutes) determined by the Provider",
-    "If steps 3 and 4 fail due to an expired code you can simply refresh the page and start at step 1 again",
-    "If you refresh and start over you may not see the permission dialog on the Provider page (because they were already granted before) and instead will be immediately redirected",
   ];
 
   const extra = (
     <>
       <Divider hidden />
-      <GetAccessTokenButton {...props} />
+      <SendAuthCodeButton {...props} />
       {state.responseBody && <StepRequestResponseCards {...state} />}
       {state.networkError && (
         <Message
@@ -115,7 +110,7 @@ const ExchangeCodeForTokenStepInstructions = props => {
   return <StepInstruction list={instructions} extra={extra} />;
 };
 
-const ExchangeCodeForTokenStep = () => {
+const SendAuthCodeToBackendStep = () => {
   const [state, setState] = useState({
     stepStatus: null,
     responseBody: null,
@@ -126,22 +121,22 @@ const ExchangeCodeForTokenStep = () => {
   });
 
   const stepProps = {
-    stepNumber: 4,
+    stepNumber: 3,
     statusLabel: "AJAX Request",
     stepStatus: state.stepStatus,
     stepName: "Send Authorization Code to Back-end",
     flowIcons: {
-      sourceIcon: "backend",
-      targetIcon: "provider",
+      sourceIcon: "frontend",
+      targetIcon: "backend",
     },
-    // stepCode: <ExchangeCodeForTokenStepCode />,
+    // stepCode: <SendAuthCodetStepCode />,
     // stepDescription: <RedirectStepDescription />,
     stepInstruction: (
-      <ExchangeCodeForTokenStepInstructions state={state} setState={setState} />
+      <SendAuthCodeStepInstructions state={state} setState={setState} />
     ),
   };
 
   return <Step {...stepProps} />;
 };
 
-export default ExchangeCodeForTokenStep;
+export default SendAuthCodeToBackendStep;

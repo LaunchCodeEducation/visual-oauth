@@ -5,15 +5,18 @@ import { Card, Grid, Button, Divider, Message, Form } from "semantic-ui-react";
 
 import { extractQsParams } from "../utils";
 
-import Step from "./Step";
-import stepIcons from "./Step/StepIcon";
-import CodeSnippet from "./CodeSnippet";
-import BehindTheScenesCode from "./BehindTheScenesCode";
+import Step from "../components/Step";
+import stepIcons from "../components/Step/StepIcon";
+import CodeSnippet from "../components/CodeSnippet";
+import BehindTheScenesCode from "../components/BehindTheScenesCode";
 import {
   TogglingRequestResponseCards,
   ResponseCard,
-} from "./RequestResponseCards";
-import { StepDescription, StepInstruction } from "./Step/StepMessage";
+} from "../components/RequestResponseCards";
+import {
+  StepDescription,
+  StepInstruction,
+} from "../components/Step/StepMessage";
 
 const getPrivilegedUserData = setPrivilegedUserData => async accessToken => {
   const response = await fetch(

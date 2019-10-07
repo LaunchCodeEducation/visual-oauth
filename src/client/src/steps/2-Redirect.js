@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import {
   Icon,
   Card,
-  List,
   Grid,
   Button,
   Reveal,
@@ -12,11 +11,14 @@ import {
 
 import { extractQsParams } from "../utils";
 
-import Step from "./Step";
-import stepIcons from "./Step/StepIcon";
-import CodeSnippet from "./CodeSnippet";
-import BehindTheScenesCode from "./BehindTheScenesCode";
-import { StepDescription, StepInstruction } from "./Step/StepMessage";
+import Step from "../components/Step";
+import stepIcons from "../components/Step/StepIcon";
+import CodeSnippet from "../components/CodeSnippet";
+import BehindTheScenesCode from "../components/BehindTheScenesCode";
+import {
+  StepDescription,
+  StepInstruction,
+} from "../components/Step/StepMessage";
 
 // StepIconFlow expects: null (neutral state), true (success), false (failure)
 // authCode may be: null (default, neutral), a string (success), undefined (failure)
@@ -282,9 +284,9 @@ document.addEventListener('DOMContentLoaded', () => {
 };
 
 // TODO: add message about the flow difference between single server (static client / SSR) vs multi server (SPA/MPA + API)
-const RedirectStepNotes = () => {
-  const header = "Single Server vs Multi-Server";
-};
+// const RedirectStepNotes = () => {
+//   const header = "Single Server vs Multi-Server";
+// };
 
 const RedirectStepCode = () => {
   // TODO: add single vs multi note in details section
@@ -296,7 +298,7 @@ const RedirectStep = () => {
 
   const stepProps = {
     stepNumber: 2,
-    statusLabel: "Redirect With Authorization Code",
+    statusLabel: "Redirect With Auth Code",
     stepName: "Redirect & Authorization Code",
     flowIcons: {
       sourceIcon: "provider",
