@@ -8,11 +8,11 @@ import { nodeOrElementType } from "../../utils";
 
 const Step = props => {
   const {
-    stepNumber,
+    stepCode,
     flowIcons,
+    stepNumber,
     stepStatus,
     statusLabel,
-    stepDetails,
     stepDescription,
     stepInstruction,
   } = props;
@@ -23,7 +23,7 @@ const Step = props => {
         <Header size="huge" content={`Step ${stepNumber}`} />
       </Divider>
 
-      <Grid.Row columns={3}>
+      <Grid.Row columns={2}>
         <Grid.Column
           width={5}
           verticalAlign="middle"
@@ -36,14 +36,26 @@ const Step = props => {
           }
         />
         <Grid.Column width={11} verticalAlign="middle">
-          <TogglingContent buttonLabel="Description">
-            {stepDescription}
-            <TogglingContent buttonLabel="Details" content={stepDetails} />
-          </TogglingContent>
-          <TogglingContent
-            buttonLabel="Instructions"
-            content={stepInstruction}
-          />
+          <Grid.Row>
+            <TogglingContent
+              buttonLabel="Instructions"
+              content={stepInstruction}
+            />
+          </Grid.Row>
+          {stepDescription && (
+            <Grid.Row>
+              <TogglingContent
+                buttonLabel="Description"
+                content={stepDescription}
+              />
+            </Grid.Row>
+          )}
+
+          {stepCode && (
+            <Grid.Row>
+              <TogglingContent buttonLabel="Code" content={stepCode} />
+            </Grid.Row>
+          )}
         </Grid.Column>
       </Grid.Row>
     </Grid>
@@ -57,7 +69,7 @@ Step.defaultProps = {
 Step.propTypes = {
   stepStatus: PropTypes.bool,
   statusLabel: PropTypes.string.isRequired,
-  stepDetails: nodeOrElementType.isRequired,
+  stepCode: nodeOrElementType.isRequired,
   stepDescription: nodeOrElementType.isRequired,
   stepInstruction: nodeOrElementType.isRequired,
   flowIcons: StepVisualFlow.iconsType.isRequired,
