@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Accordion, Grid, Button } from "semantic-ui-react";
 
+import { nodeOrElementType } from "../utils";
+
 const TogglingContent = props => {
   const { buttonLabel, trigger, content, children } = props;
   const [contentVisible, setContentVisibility] = useState(false);
@@ -34,6 +36,11 @@ const TogglingContent = props => {
   );
 };
 
-TogglingContent.propTypes = {};
+TogglingContent.propTypes = {
+  trigger: PropTypes.element,
+  content: nodeOrElementType,
+  children: nodeOrElementType,
+  buttonLabel: PropTypes.string,
+};
 
 export default TogglingContent;
