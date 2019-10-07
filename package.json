@@ -3,14 +3,13 @@
   "version": "0.0.1",
   "description": "A tool for visualizing the most common (authorization code grant) OAuth flow in a step-by-step interactive process",
   "scripts": {
-    "env:load": "env $(< .env.shared)",
     "env:create": "bash create-env-files.sh",
     "install:api": "cd src/api && npm install",
     "install:client": "cd src/client && npm install",
     "install": "npm run install:api && npm run install:client",
     "start:api": "cd src/api && npm run dev",
     "start:client": "cd src/client && npm start",
-    "start": "npm run env -- npm run start:api & npm run start:client"
+    "start": "npm run start:api & npm run start:client"
   },
   "author": "the-vampiire",
   "license": "MIT"

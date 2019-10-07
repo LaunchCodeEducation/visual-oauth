@@ -18,13 +18,11 @@ git clone https://github.com/the-vampiire/visual-oauth
 ```sh
 src/
   README.md
-  .env.shared <--- shared environment variables
-  package.json <--- root scripts to install / run the client and API servers
+  package.json <-- root scripts to install / setup / run the client and API servers
   api/
     ...api code
   client/
     ...client code
-
 ```
 
 ## install dependencies
@@ -84,10 +82,10 @@ npm run env:create
 
 - use the tool in your browser
 - feel free to poke around the code, add logs and make changes to see how it impacts the flow
-  - you will want to run the servers separately (see below) when tinkering
+  - you will want need to run the servers separately (see below) when tinkering
 - the react client has a lot of UI components that can be confusing to navigate
-  - all of the steps themselves are labeled `src/components/#-StepName.js` all of the OAuth related logic is in these
-    - steps 1 and 2 are client-side (front-end)
+  - all of the OAuth related logic is in the `src/client/src/steps/#-StepName.js` files
+  - steps 1 and 2 are client-side (front-end)
 - the api is simple to navigate and has comments
   - steps 3-5 are server-side (back-end)
 
