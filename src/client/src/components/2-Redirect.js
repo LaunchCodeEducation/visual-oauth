@@ -166,9 +166,6 @@ const RedirectStepInstruction = props => {
     "Click the button below to check for and retrieve the authorization code",
     "If step 1 was successful this code will be present as a querystring parameter (?code=XXX) in the URL",
     "You can see the original querystring in your URL bar and the code itself below after it has been extracted",
-    "Note that the authorization code has an expiration (typically 5-10 minutes) determined by the Provider",
-    "If steps 3 and 4 fail due to an expired code you can simply refresh the page and start at step 1 again",
-    "If you refresh and start over you may not see the permission dialog on the Provider page (because they were already granted before) and instead will be immediately redirected",
   ];
 
   const extra = (
@@ -289,7 +286,7 @@ const RedirectStepNotes = () => {
   const header = "Single Server vs Multi-Server";
 };
 
-const RedirectStepDetails = () => {
+const RedirectStepCode = () => {
   // TODO: add single vs multi note in details section
   return <RedirectBehindTheScenes />;
 };
@@ -299,14 +296,14 @@ const RedirectStep = () => {
 
   const stepProps = {
     stepNumber: 2,
-    statusLabel: "Redirect With Code",
+    statusLabel: "Redirect With Authorization Code",
     stepName: "Redirect & Authorization Code",
     flowIcons: {
       sourceIcon: "provider",
       targetIcon: "frontend",
     },
     stepStatus: getStepStatus(authCode),
-    stepDetails: <RedirectStepDetails />,
+    stepCode: <RedirectStepCode />,
     stepDescription: <RedirectStepDescription />,
     stepInstruction: (
       <RedirectStepInstruction authCode={authCode} setAuthCode={setAuthCode} />
