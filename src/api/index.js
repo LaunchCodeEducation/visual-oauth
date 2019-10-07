@@ -1,54 +1,23 @@
 const express = require("express");
 
-const utils = require("./utils");
+const handlers = require("./handlers");
+const middleware = require("./middleware");
 
 const app = express();
 
-// set CORS headers
-app.use((_, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", process.env.CLIENT_DOMAIN);
-  res.setHeader(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept",
-  );
+//-- apply middleware at the app level (affects all requests) --//
+app.use(middleware);
 
-  next();
-});
+//-- define routes and associate respective handlers --//
+// receives and echos the request to send the auth code from front-end to back-end
+app.post("/oauth/code", handlers.receiveAuthCodeHandler);
 
-// JSON middleware that turns incoming request bodies into a JS object on req.body
-app.use(express.json());
+// receives auth code and exchanges with github for access token
+app.post("/oauth/access_token", handlers.exchangeCodeForTokensHandler);
 
-const receiveAuthCodeHandler = (req, res) => {
-  const output = {
-    error: null,
-    received: req.body,
-  };
+// request privileged user data using an access token
+app.post("/oauth/user_data", handlers.privilegedUserDataHandler);
 
-  if (!req.body.code) {
-    output.error = "Missing authorization code";
-    return res.status(400).send(output);
-  }
-
-  return res.send(output);
-};
-
-app.post("/oauth/code", receiveAuthCodeHandler);
-
-const exchangeCodeForTokensHandler = async (req, res) => {
-  const { code } = req.body;
-
-  try {
-    const response = await utils.exchangeAuthCodeForTokens(code);
-    return res.sendStatus(response ? 200 : 500);
-  } catch (error) {
-    console.error({ error });
-    res.status(5);
-  }
-
-  console.log(response.data);
-};
-
-app.post("/oauth/tokens", exchangeCodeForTokensHandler);
-
+//-- run the app server --//
 const PORT = process.env.PORT || 8008;
 app.listen(PORT, () => console.log(`app server listening on port ${PORT}`));

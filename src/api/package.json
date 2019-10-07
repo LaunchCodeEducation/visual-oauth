@@ -1,8 +1,15 @@
 {
-  "name": "gis-devops-w9-oauth",
-  "version": "1.0.0",
-  "description": "LaunchCode GIS / DevOps W9D4 OAuth studio",
+  "name": "visual-oauth-api",
+  "version": "0.0.1",
+  "description": "Back-end API for Visual OAUth tool",
   "main": "src/api",
+  "environment": {
+    "CLIENT_DOMAIN": "hosted / local client domain",
+    "GITHUB_CLIENT_ID": "client ID for registered github oauth app",
+    "GITHUB_CLIENT_SECRET": "client secret for registered github oauth app",
+    "GITHUB_REDIRECT_URI": "client redirect domain path",
+    "GITHUB_ACCESS_TOKEN_ENDPOINT": "GitHub API OAuth access token endpoint"
+  },
   "scripts": {
     "test": "npm test",
     "env:dev": "env $(< .env)",
