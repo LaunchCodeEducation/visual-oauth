@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Card, Grid, Button, Divider, Message } from "semantic-ui-react";
+import { Button, Divider, Message } from "semantic-ui-react";
 
 import { extractQsParams } from "../utils";
 
@@ -7,8 +7,8 @@ import Step from "./Step";
 import stepIcons from "./Step/StepIcon";
 import CodeSnippet from "./CodeSnippet";
 import BehindTheScenesCode from "./BehindTheScenesCode";
+import { TogglingRequestResponseCards } from "./RequestResponseCards";
 import { StepDescription, StepInstruction } from "./Step/StepMessage";
-import TogglingContent from "./TogglingContent";
 
 const sendAuthCode = async (state, setState) => {
   const codeEndpoint = `${process.env.REACT_APP_API_DOMAIN}/oauth/code`;
@@ -57,79 +57,25 @@ const SendAuthCodeButton = props => {
   );
 };
 
-const RequestCard = props => {
-  const { meta, requestBody } = props;
-
-  return (
-    <Card fluid>
-      <Card.Content>
-        <Card.Header>Request</Card.Header>
-        <Card.Meta>{meta}</Card.Meta>
-        <Card.Description>
-          <CodeSnippet
-            language="json"
-            snippetString={JSON.stringify(requestBody, null, 2)}
-          />
-        </Card.Description>
-      </Card.Content>
-    </Card>
-  );
-};
-
-const ResponseCard = props => {
-  const { meta, responseBody, responseStatusCode } = props;
-
-  return (
-    <Card>
-      <Card.Content extra>
-        <Card.Header>Response</Card.Header>
-        <Card.Meta>{meta}</Card.Meta>
-        <Card.Description>
-          <Divider
-            horizontal
-            style={{ color: responseStatusCode === 200 ? "green" : "red" }}
-          >
-            status code: {responseStatusCode}
-          </Divider>
-          <CodeSnippet
-            language="json"
-            snippetString={JSON.stringify(responseBody, null, 2)}
-          />
-        </Card.Description>
-      </Card.Content>
-    </Card>
-  );
-};
-
 const StepRequestResponseCards = props => {
   const { responseBody, responseStatusCode } = props;
+  const { error, received } = responseBody;
 
-  const requestCardProps = {
-    requestBody: responseBody.received,
+  const requestData = {
+    requestBody: received,
     meta: <span>sent from the {stepIcons.frontend.inline}</span>,
   };
 
-  const responseCardProps = {
-    responseBody,
+  const responseData = {
     responseStatusCode,
+    responseBody: { error, received },
     meta: <span>sent from the {stepIcons.backend.inline}</span>,
   };
 
   return (
-    <TogglingContent
-      buttonLabel="Request &amp; Response Info"
-      content={
-        <Grid centered padded>
-          <Grid.Row columns={2}>
-            <Grid.Column width={8}>
-              <RequestCard {...requestCardProps} />
-            </Grid.Column>
-            <Grid.Column width={8}>
-              <ResponseCard {...responseCardProps} />
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
-      }
+    <TogglingRequestResponseCards
+      requestData={requestData}
+      responseData={responseData}
     />
   );
 };
@@ -173,14 +119,14 @@ const SendAuthCodeToBackendStep = () => {
 
   const stepProps = {
     stepNumber: 3,
-    statusLabel: "Send HTTP Request",
+    statusLabel: "AJAX Request",
     stepStatus: state.stepStatus,
     stepName: "Send Authorization Code to Back-end",
     flowIcons: {
       sourceIcon: "frontend",
       targetIcon: "backend",
     },
-    // stepDetails: <RedirectStepDetails />,
+    // stepCode: <SendAuthCodetStepCode />,
     // stepDescription: <RedirectStepDescription />,
     stepInstruction: (
       <SendAuthCodeStepInstructions state={state} setState={setState} />
