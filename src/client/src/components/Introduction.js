@@ -241,10 +241,10 @@ const Introduction = () => {
             warning
             header="Authorization Code [grant] Flow"
             list={[
-              "User authenticates their identity with a Provider",
-              "User accepts the data access / management permissions requested by the App",
-              "App authenticates its identity with the Provider and is given a temporary access token",
-              "App uses and (typically) refreshes this access token to make authorized requests, on behalf of the permitting User, for data access / management on the Provider",
+              "The User authenticates their identity with a Provider",
+              "The User accepts the data access / management permissions requested by the App",
+              "The App authenticates its identity with the Provider and is given a temporary access token holding authorization permissions",
+              "The App uses and (typically) refreshes this access token to make authorized requests, on behalf of the permitting User, for data access / management on the Provider",
             ]}
           />
         </Grid.Row>
