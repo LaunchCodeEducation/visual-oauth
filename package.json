@@ -2,6 +2,8 @@
   "name": "visual-oauth",
   "version": "0.0.1",
   "description": "A tool for visualizing the most common (authorization code grant) OAuth flow in a step-by-step interactive process",
+  "author": "the-vampiire",
+  "license": "GPL-3.0",
   "scripts": {
     "env:create": "bash create-env-files.sh",
     "install:api": "cd src/api && npm install",
@@ -10,7 +12,5 @@
     "start:api": "cd src/api && npm run dev",
     "start:client": "cd src/client && npm start",
     "start": "npm run start:api & npm run start:client"
-  },
-  "author": "the-vampiire",
-  "license": "MIT"
+  }
 }
