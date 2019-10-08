@@ -53,7 +53,7 @@ const Step = props => {
 
           {stepCode && (
             <Grid.Row>
-              <TogglingContent buttonLabel="Code" content={stepCode} />
+              <TogglingContent buttonLabel="Source" content={stepCode} />
             </Grid.Row>
           )}
         </Grid.Column>
