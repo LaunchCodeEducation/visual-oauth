@@ -1,8 +1,9 @@
 {
   "name": "client",
-  "version": "0.1.0",
-  "private": true,
+  "version": "0.0.1",
   "description": "front-end client for Visual Oauth tool",
+  "author": "the-vampiire",
+  "license": "GPL-3.0",
   "environment": {
     "REACT_APP_API_DOMAIN": "hosted / local API domain address",
     "REACT_APP_GITHUB_AUTH_ENDPOINT": "GitHub OAuth authorization endpoint (must include client_id, redirect_uri and scope qs params)"

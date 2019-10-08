@@ -2,6 +2,8 @@
   "name": "visual-oauth-api",
   "version": "0.0.1",
   "description": "Back-end API for Visual OAUth tool",
+  "author": "the-vampiire",
+  "license": "GPL-3.0",
   "main": "src/api",
   "environment": {
     "CLIENT_DOMAIN": "hosted / local client domain",
@@ -15,8 +17,6 @@
     "env:dev": "env $(< .env)",
     "dev": "npm run env:dev -- nodemon index.js"
   },
-  "author": "the-vampiire",
-  "license": "MIT",
   "dependencies": {
     "axios": "^0.19.0",
     "express": "^4.17.1"
