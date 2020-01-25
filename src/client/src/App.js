@@ -6,7 +6,7 @@ import Introduction from "./components/Introduction";
 
 function App() {
   return (
-    <Container style={{ margin: "50px" }}>
+    <Container style={{ margin: "25px" }}>
       <Header
         size="huge"
         textAlign="center"
