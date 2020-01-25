@@ -5,7 +5,7 @@
   "author": "the-vampiire",
   "license": "GPL-3.0",
   "scripts": {
-    "env:create": "bash create-env-files.sh",
+    "setup": "bash setup.sh",
     "install:api": "cd src/api && npm install",
     "install:client": "cd src/client && npm install",
     "install": "npm run install:api && npm run install:client",
