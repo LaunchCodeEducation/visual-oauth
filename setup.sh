@@ -1,5 +1,5 @@
 printf "\nYou will be prompted for your GitHub client ID and secret\n"
-printf "\nThese values will be stored in src/api.env and src/client/.env\n"
+printf "\nThese values will be stored in src/api.env and src/client/.env\n\n"
 
 read -p '[GitHub Client ID]: ' client_id
 read -p '[GitHub Client Secret]: ' client_secret
@@ -9,9 +9,9 @@ redirect_uri=http://localhost:3000/
 
 if [[ -e "src/client/.env" ]]; 
 then
-  printf "\nclient env file already exists"
+  printf "\nclient env file already exists\n"
 else
-  printf "\ncreating client env file at src/client/.env"
+  printf "\ncreating client env file at src/client/.env\n"
 
 cat <<- EOF > src/client/.env
 REACT_APP_API_DOMAIN=$api_origin
@@ -23,9 +23,9 @@ fi
 
 if [[ -e "src/api/.env" ]]; 
 then
-  printf "\nAPI env file already exists"
+  printf "\nAPI env file already exists\n"
 else
-  printf "\ncreating API env file at src/api/.env"
+  printf "\ncreating API env file at src/api/.env\n"
 
 cat <<- EOF > src/api/.env
 CLIENT_DOMAIN=http://localhost:3000

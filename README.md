@@ -20,7 +20,7 @@ $ git clone https://github.com/the-vampiire/visual-oauth
 $ git clone https://github.com/the-vampiire/visual-oauth /path/to/cloned/repo
 ```
 
-> you will get the following directory structure
+> creates the following directory structure
 
 ```sh
 visual-oauth/
@@ -40,16 +40,14 @@ visual-oauth/
 - scroll down to `developer settings` in the sidebar
 - select `oauth apps`
 - select `new oauth app`
-- give a name for your app (`YOUR_NAME Visual OAuth`)
+- give a name for your app: `YOUR_NAME Visual OAuth`
 - for homepage url enter: `http://localhost:3000/`
 - for authorization callback url enter: `http://localhost:3000/`
 - click `register application`
 
-> leave this tab open to copy over the `client_id` and `client_secret` in the next step
+> **leave this tab open to copy over the Client ID and Secret in the next step**
 
 ## set up the application
-
-> **run the following command in the root directory of the repo (where the `README.md` is)**
 
 ```sh
 # run this from the root directory of the repo
@@ -58,13 +56,13 @@ $ npm run setup
 
 ## run the app
 
-> **run the following command in the root directory of the repo (where the `README.md` is)**
-
 ```sh
 # run this from the root directory of the repo
 $ npm run start
 ```
 
-> if it doesn't enter `http://localhost:3000` into your browser manually your browser should open to the client page automatically
+> **it may take up to 30 seconds for the application to start up**
+
+> if your browser doesn't open automatically click this link http://localhost:3000
 
 > you can stop the app using `ctrl+C` in the terminal
