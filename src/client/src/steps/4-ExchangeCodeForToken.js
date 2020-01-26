@@ -1,17 +1,12 @@
 import React, { useState } from "react";
-import { Button, Divider, Message } from "semantic-ui-react";
+import { Card, Icon, Button, Divider, Message } from "semantic-ui-react";
 
 import { extractQsParams } from "../utils";
 
 import Step from "../components/Step";
 import stepIcons from "../components/Step/StepIcon";
-import CodeSnippet from "../components/CodeSnippet";
-import BehindTheScenesCode from "../components/BehindTheScenesCode";
 import { TogglingRequestResponseCards } from "../components/RequestResponseCards";
-import {
-  StepDescription,
-  StepInstruction,
-} from "../components/Step/StepMessage";
+import { StepInstruction } from "../components/Step/StepMessage";
 
 const getAccessToken = async (state, setState) => {
   const tokenEndpoint = `${process.env.REACT_APP_API_DOMAIN}/oauth/access_token`;
@@ -76,27 +71,52 @@ const StepRequestResponseCards = props => {
 
   const responseData = {
     responseStatusCode,
+    // error indicates a network error
+    // received is the Provider response and could contain the access token or a Provider error
     responseBody: error || received,
     meta: <span>sent from the {stepIcons.provider.inline}</span>,
   };
 
   return (
-    <TogglingRequestResponseCards
-      requestData={requestData}
-      responseData={responseData}
-    />
+    <>
+      {received["access_token"] && (
+        <Card fluid centered>
+          <Card.Content
+            meta="Access Token"
+            description={received["access_token"]}
+            header={<Icon name="key" color="yellow" size="large" />}
+          />
+        </Card>
+      )}
+      {received.error && (
+        <Message
+          error
+          header="Exchange Failed"
+          list={[
+            "This step failed due to an invalid Auth Code (expired or already used)",
+            "Note that the Auth Code may only be used once and has an expiration (typically 5-10 minutes) determined by the Provider",
+            "You can view the Provider response error message below",
+            "You will need to restart at step 1 to get a new Auth Code",
+            "You may not see the permission dialog on the Provider page (because they were already granted before) and instead will be immediately redirected",
+          ]}
+        />
+      )}
+      <TogglingRequestResponseCards
+        requestData={requestData}
+        responseData={responseData}
+      />
+    </>
   );
 };
 
 const ExchangeCodeForTokenStepInstructions = props => {
   const { state } = props;
+
   const instructions = [
-    "Click the button below to send the authorization code to the back-end",
-    "You can then view what the front-end sent in its request and what the back-end sent in its response",
-    "If the button is disabled then an authorization code is unavailable in the URL and you will need to restart at step 1",
-    "Note that the authorization code has an expiration (typically 5-10 minutes) determined by the Provider",
-    "If steps 3 and 4 fail due to an expired code you can simply refresh the page and start at step 1 again",
-    "If you refresh and start over you may not see the permission dialog on the Provider page (because they were already granted before) and instead will be immediately redirected",
+    "In this final step the back-end receives the Auth Code and exchanges it with the Provider for an Access Token",
+    "The back-end sends the exchange request to the Provider with its authentication credentials (Client ID and Secret) along with the Auth Code",
+    "Click the button below to initiate the Access Token exchange process",
+    "You can then view the request sent by the back-end and the response it received from the Provider",
   ];
 
   const extra = (
@@ -130,12 +150,16 @@ const ExchangeCodeForTokenStep = () => {
 
   const stepProps = {
     stepNumber: 4,
-    statusLabel: "AJAX Request",
     stepStatus: state.stepStatus,
-    stepName: "Send Authorization Code to Back-end",
+    statusLabel: "Request Access Token",
+    stepLabel: "Exchange Auth Code For Access Token",
     flowIcons: {
-      sourceIcon: "backend",
-      targetIcon: "provider",
+      source: {
+        icon: "backend",
+      },
+      target: {
+        icon: "provider",
+      },
     },
     // stepCode: <ExchangeCodeForTokenStepCode />,
     // stepDescription: <RedirectStepDescription />,
