@@ -66,13 +66,21 @@ const StepRequestResponseCards = props => {
 
   const requestData = {
     requestBody: received,
-    meta: <span>sent from the {stepIcons.frontend.inline}</span>,
+    meta: (
+      <span>
+        sent from the {stepIcons.frontend.inlineCustom("App (Front-end)")}
+      </span>
+    ),
   };
 
   const responseData = {
     responseStatusCode,
     responseBody: { error, received },
-    meta: <span>sent from the {stepIcons.backend.inline}</span>,
+    meta: (
+      <span>
+        sent from the {stepIcons.backend.inlineCustom("App (Back-end)")}
+      </span>
+    ),
   };
 
   return (
@@ -86,9 +94,10 @@ const StepRequestResponseCards = props => {
 const SendAuthCodeStepInstructions = props => {
   const { state } = props;
   const instructions = [
-    "Click the button below to send the authorization code to the back-end",
-    "You can then view what the front-end sent in its request and what the back-end sent in its response",
-    "If the button is disabled then an authorization code is unavailable in the URL and you will need to restart at step 1",
+    "Now that the Auth Code has been received and extracted it must be sent to the back-end",
+    "Click the button below to send the Auth Code to the back-end",
+    "Normally the Auth Code is sent to the back-end and immediately exchanged for an Access Token (demonstrated in the next step). But these steps have been separated here for demonstration purposes",
+    "You can see the front-end request and back-end response below",
   ];
 
   const extra = (
@@ -121,13 +130,16 @@ const SendAuthCodeToBackendStep = () => {
   });
 
   const stepProps = {
-    stepNumber: 3,
-    statusLabel: "AJAX Request",
+    statusLabel: "Send Auth Code",
     stepStatus: state.stepStatus,
-    stepName: "Send Authorization Code to Back-end",
+    stepLabel: "Send Auth Code to Back-end",
     flowIcons: {
-      sourceIcon: "frontend",
-      targetIcon: "backend",
+      source: {
+        icon: "frontend",
+      },
+      target: {
+        icon: "backend",
+      },
     },
     // stepCode: <SendAuthCodetStepCode />,
     // stepDescription: <RedirectStepDescription />,
