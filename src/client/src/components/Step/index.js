@@ -42,20 +42,22 @@ const Step = props => {
               content={stepInstruction}
             />
           </Grid.Row>
-          {stepDescription && (
+          {/* TODO: uncomment when all sections have step description */}
+          {/* {stepDescription && (
             <Grid.Row>
               <TogglingContent
                 buttonLabel="Description"
                 content={stepDescription}
               />
             </Grid.Row>
-          )}
+          )} */}
 
-          {stepCode && (
+          {/* TODO: uncomment when all sections have source code */}
+          {/* {stepCode && (
             <Grid.Row>
               <TogglingContent buttonLabel="Source" content={stepCode} />
             </Grid.Row>
-          )}
+          )} */}
         </Grid.Column>
       </Grid.Row>
     </Grid>
