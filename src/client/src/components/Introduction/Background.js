@@ -4,7 +4,7 @@ import { Header, Message, Divider, Statistic, Grid } from "semantic-ui-react";
 import TogglingContent from "../TogglingContent";
 
 const BackgroundSection = () => (
-  <section>
+  <section style={{ textAlign: "left" }}>
     <Grid>
       <Divider horizontal section>
         <Header size="huge">Background Information</Header>
@@ -237,6 +237,7 @@ const BackgroundSection = () => (
 
 export default () => (
   <TogglingContent
+    defaultVisibility={false}
     content={<BackgroundSection />}
     buttonLabel="Background Information"
   />

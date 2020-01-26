@@ -3,7 +3,7 @@ import { Header, Statistic, Message, Divider, Grid } from "semantic-ui-react";
 import TogglingContent from "../TogglingContent";
 
 const OAuthSection = () => (
-  <section>
+  <section style={{ textAlign: "left" }}>
     <Grid>
       <Divider horizontal section>
         <Header size="huge" content="How OAuth Works" />
@@ -360,5 +360,9 @@ const OAuthSection = () => (
 );
 
 export default () => (
-  <TogglingContent buttonLabel="How OAuth Works" content={<OAuthSection />} />
+  <TogglingContent
+    defaultVisibility={false}
+    content={<OAuthSection />}
+    buttonLabel="How OAuth Works"
+  />
 );
