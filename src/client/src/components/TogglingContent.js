@@ -5,8 +5,14 @@ import { Accordion, Grid, Button } from "semantic-ui-react";
 import { nodeOrElementType } from "../utils";
 
 const TogglingContent = props => {
-  const { buttonLabel, trigger, content, children } = props;
-  const [contentVisible, setContentVisibility] = useState(false);
+  const {
+    trigger,
+    content,
+    children,
+    buttonLabel,
+    defaultVisibility = false,
+  } = props;
+  const [contentVisible, setContentVisibility] = useState(defaultVisibility);
 
   return (
     <Grid centered container padded>
