@@ -114,24 +114,26 @@ const UseAccessTokenStepInstructions = props => {
   } = state;
 
   const instructions = [
-    "Copy the access token from the step 4 response",
-    "Paste it below to request privileged User data. This data is only accessible by requesters with an access token containing the required privilege scope (read:user)",
-    "Then enter your username to request public User data. This data is accessible to anyone on the internet",
-    "You can view the responses below to compare the privileged vs. public User data",
-    "Notice that the privileged User data contains private information like 'private_gists' and 'private_repo_count' that the Provider does not expose publicly",
+    "Now that the OAuth flow is complete the Access Token can be used",
+    "The back-end will normally save the Access Token and associate it with a User account. It will use the Access Token to issue requests as a proxy for the front-end so that the Access Token is never exposed in the browser",
+    "Whenever a request is made to the Provider the Access Token is sent through an Authorization header",
+    "Enter your GitHub username to request public User data. This data is accessible to anyone on the internet",
+    "Next copy the Access Token from the previous step and paste it below to request privileged User data. This data is only accessible by requesters with an Access Token issued to an App with the permission scope [read:user]",
+    "You can view the responses below to compare the public and privileged User data",
+    "Notice that the privileged User data response has extra information at the end. It contains private information like 'private_gists' and 'private_repo_count' that the Provider does not expose publicly",
   ];
 
   const extra = (
     <Grid centered padded>
       <Grid.Row columns={2}>
         <Grid.Column>
-          <RequestPrivilegedUserDataForm
-            getPrivilegedUserData={getPrivilegedUserData(setPrivilegedUserData)}
+          <RequestPublicUserDataForm
+            getPublicUserData={getPublicUserData(setPublicUserData)}
           />
         </Grid.Column>
         <Grid.Column>
-          <RequestPublicUserDataForm
-            getPublicUserData={getPublicUserData(setPublicUserData)}
+          <RequestPrivilegedUserDataForm
+            getPrivilegedUserData={getPrivilegedUserData(setPrivilegedUserData)}
           />
         </Grid.Column>
       </Grid.Row>
@@ -189,13 +191,16 @@ const ExchangeCodeForTokenStep = () => {
     });
 
   const stepProps = {
-    stepNumber: "After OAuth",
-    statusLabel: "AJAX Request",
+    statusLabel: "Request User Data",
     stepStatus: state.stepStatus,
-    stepName: "(After OAuth) Using the Access Token",
+    stepLabel: "After OAuth - Use the Access Token",
     flowIcons: {
-      sourceIcon: "backend",
-      targetIcon: "provider",
+      source: {
+        icon: "backend",
+      },
+      target: {
+        icon: "provider",
+      },
     },
     // stepCode: <UseAccessTokenStepCode />,
     // stepDescription: <RedirectStepDescription />,
