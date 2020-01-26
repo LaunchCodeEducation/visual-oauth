@@ -10,7 +10,7 @@ const Step = props => {
   const {
     stepCode,
     flowIcons,
-    stepNumber,
+    stepLabel,
     stepStatus,
     statusLabel,
     stepDescription,
@@ -20,7 +20,7 @@ const Step = props => {
   return (
     <Grid container centered padded>
       <Divider horizontal section>
-        <Header size="huge" content={`Step ${stepNumber}`} />
+        <Header size="huge" content={stepLabel} />
       </Divider>
 
       <Grid.Row columns={2}>
@@ -70,6 +70,7 @@ Step.defaultProps = {
 
 Step.propTypes = {
   stepStatus: PropTypes.bool,
+  stepLabel: PropTypes.string.isRequired,
   statusLabel: PropTypes.string.isRequired,
   stepCode: nodeOrElementType.isRequired,
   stepDescription: nodeOrElementType.isRequired,
