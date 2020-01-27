@@ -138,8 +138,8 @@ const ExchangeCodeForTokenStepInstructions = props => {
   return <StepInstruction list={instructions} extra={extra} />;
 };
 
-const ExchangeCodeForTokenStep = () => {
-  const [state, setState] = useState({
+const useAccessTokenExchangeState = reportStepStatus => {
+  const [state, setStateBase] = useState({
     stepStatus: null,
     responseBody: null,
     networkError: null,
@@ -148,11 +148,24 @@ const ExchangeCodeForTokenStep = () => {
     authCode: extractQsParams().code,
   });
 
+  const setStateWrapper = state => {
+    reportStepStatus(state.stepStatus);
+    return setStateBase(state);
+  };
+
+  return [state, setStateWrapper];
+};
+
+const ExchangeCodeForTokenStep = props => {
+  const { reportStepStatus } = props;
+
+  const [state, setState] = useAccessTokenExchangeState(reportStepStatus);
+
   const stepProps = {
     stepNumber: 4,
     stepStatus: state.stepStatus,
     statusLabel: "Request Access Token",
-    stepLabel: "Exchange Auth Code For Access Token",
+    stepLabel: "Step 4: Exchange Auth Code For Access Token",
     flowIcons: {
       source: {
         icon: "backend",
