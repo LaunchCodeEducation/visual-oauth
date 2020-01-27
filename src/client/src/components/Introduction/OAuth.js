@@ -9,15 +9,18 @@ const OAuthContent = () => (
     <Grid padded container>
       <Grid.Row>
         <p>
-          Now that we have learned the fundmental terminologies of User
-          interactions on the web we can begin exploring OAuth. OAuth is{" "}
-          <EasyLink url="https://oauth.net/2/" label="a specification" /> that
-          describes a process for secure delagation of access to a User's data
-          between services. OAuth is at the heart of most User interactions on
-          the modern web. It uses all of the technologies and practices
-          described in the Background Information section. If you find any of
-          the terms seem foreign as you read this section you can learn about
-          them in there.
+          OAuth is{" "}
+          <EasyLink url="https://oauth.net/2/" label="a web specification" />{" "}
+          that describes a process for secure delagation of access to a User's
+          data between services. OAuth is at the heart of most User interactions
+          on the modern web. In fact you have likely used OAuth many times
+          before without realizing it!
+        </p>
+        <p>
+          If the terms <b>Authentication and Authorization</b> sound foreign to
+          you then now would be a good time to visit the Authentication &
+          Authorization section above. Otherwise you are ready to learn about
+          OAuth.
         </p>
       </Grid.Row>
 
@@ -356,17 +359,21 @@ const OAuthContent = () => (
   </section>
 );
 
-export default props => (
-  <>
-    <Divider
-      horizontal
-      section
-      content={<Header size="huge" content="OAuth Information" />}
-    />
-    <TogglingContent
-      defaultVisibility={false}
-      content={<OAuthContent />}
-      buttonLabel={props.sectionLabel}
-    />
-  </>
-);
+export default props => {
+  const { sectionLabel } = props;
+
+  return (
+    <>
+      <Divider
+        horizontal
+        section
+        content={<Header size="huge" content={sectionLabel} />}
+      />
+      <TogglingContent
+        defaultVisibility={false}
+        content={<OAuthContent />}
+        buttonLabel={props.sectionLabel}
+      />
+    </>
+  );
+};
