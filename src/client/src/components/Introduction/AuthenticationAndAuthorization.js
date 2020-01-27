@@ -10,13 +10,14 @@ const BackgroundContent = () => (
         <Header size="medium">Authentication and Authorization</Header>
 
         <p>
-          In order to understand any new technology we should begin by exploring
-          why it exists and what problems it aims to solve. Along the way it is
-          important to learn the terminology that the technology is built on. We
-          will start by introducing two fundamental concepts of User interaction
-          in web development - <b>authentication and authorization</b>. While
-          these two terms are often conflated they each have distinct roles that
-          are integral to how OAuth works.
+          In order to learn any new technology we should begin by exploring why
+          it exists and what problems it aims to solve. But in order to
+          understand the problem we have to learn some key terminology that the
+          technology is built on. We will start by introducing two fundamental
+          concepts of User interaction in web development -{" "}
+          <b>Authentication and Authorization</b>. While these two terms are
+          often conflated they each have distinct roles that are integral to how
+          OAuth works.
         </p>
       </Grid.Row>
       <Grid.Row columns={2}>
@@ -242,8 +243,8 @@ export default props => {
       />
       <TogglingContent
         defaultVisibility={false}
-        content={<BackgroundContent />}
         buttonLabel={sectionLabel}
+        content={<BackgroundContent />}
       />
     </>
   );
