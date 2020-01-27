@@ -3,25 +3,20 @@ import { Header, Message, Divider, Statistic, Grid } from "semantic-ui-react";
 
 import TogglingContent from "../TogglingContent";
 
-const BackgroundSection = () => (
+const BackgroundContent = () => (
   <section style={{ textAlign: "left" }}>
-    <Grid>
-      <Divider horizontal section>
-        <Header size="huge">Background Information</Header>
-      </Divider>
-
+    <Grid padded container>
       <Grid.Row>
         <Header size="medium">Authentication and Authorization</Header>
 
         <p>
           In order to understand any new technology we should begin by exploring
           why it exists and what problems it aims to solve. Along the way it is
-          important to gain fundamental knowledge that technology is built on.
-          We will start by introducing two fundamental concepts of User
-          interaction in web development -{" "}
-          <b>authentication and authorization</b>. While these two terms are
-          often conflated they each have distinct roles that are integral to how
-          OAuth works.
+          important to learn the terminology that the technology is built on. We
+          will start by introducing two fundamental concepts of User interaction
+          in web development - <b>authentication and authorization</b>. While
+          these two terms are often conflated they each have distinct roles that
+          are integral to how OAuth works.
         </p>
       </Grid.Row>
       <Grid.Row columns={2}>
@@ -235,10 +230,21 @@ const BackgroundSection = () => (
   </section>
 );
 
-export default () => (
-  <TogglingContent
-    defaultVisibility={false}
-    content={<BackgroundSection />}
-    buttonLabel="Background Information"
-  />
-);
+export default props => {
+  const { sectionLabel } = props;
+
+  return (
+    <>
+      <Divider
+        horizontal
+        section
+        content={<Header size="huge" content={sectionLabel} />}
+      />
+      <TogglingContent
+        defaultVisibility={false}
+        content={<BackgroundContent />}
+        buttonLabel={sectionLabel}
+      />
+    </>
+  );
+};

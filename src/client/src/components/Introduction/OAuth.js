@@ -1,26 +1,23 @@
 import React from "react";
 import { Header, Statistic, Message, Divider, Grid } from "semantic-ui-react";
+
+import EasyLink from "../EasyLink";
 import TogglingContent from "../TogglingContent";
 
-const OAuthSection = () => (
+const OAuthContent = () => (
   <section style={{ textAlign: "left" }}>
-    <Grid>
-      <Divider horizontal section>
-        <Header size="huge" content="How OAuth Works" />
-      </Divider>
-
+    <Grid padded container>
       <Grid.Row>
         <p>
           Now that we have learned the fundmental terminologies of User
           interactions on the web we can begin exploring OAuth. OAuth is{" "}
-          <a
-            target="_blank"
-            rel="noopener noreferrer"
-            href="https://oauth.net/2/"
-          >
-            a specification
-          </a>{" "}
-          that describes a process for secure delagation of data access.
+          <EasyLink url="https://oauth.net/2/" label="a specification" /> that
+          describes a process for secure delagation of access to a User's data
+          between services. OAuth is at the heart of most User interactions on
+          the modern web. It uses all of the technologies and practices
+          described in the Background Information section. If you find any of
+          the terms seem foreign as you read this section you can learn about
+          them in there.
         </p>
       </Grid.Row>
 
@@ -33,16 +30,16 @@ const OAuthSection = () => (
             content={
               <>
                 <p>
-                  A protocol that allows a User to authorize the delegation of
-                  access to their data from one service to another on the
-                  internet.
+                  A protocol that allows a User to securely <b>authorize</b> the
+                  delegation of access to their data existing on one service to
+                  another service on the internet.
                 </p>
                 <Grid centered padded>
                   <Statistic size="tiny">
                     <Statistic.Label>Plain English</Statistic.Label>
                     <Statistic.Value>
                       "a process for a User to control how their data in one
-                      service can be accessed by another unrelated service"
+                      service can be accessed by another independent service"
                     </Statistic.Value>
                   </Statistic>
                 </Grid>
@@ -359,10 +356,17 @@ const OAuthSection = () => (
   </section>
 );
 
-export default () => (
-  <TogglingContent
-    defaultVisibility={false}
-    content={<OAuthSection />}
-    buttonLabel="How OAuth Works"
-  />
+export default props => (
+  <>
+    <Divider
+      horizontal
+      section
+      content={<Header size="huge" content="OAuth Information" />}
+    />
+    <TogglingContent
+      defaultVisibility={false}
+      content={<OAuthContent />}
+      buttonLabel={props.sectionLabel}
+    />
+  </>
 );
