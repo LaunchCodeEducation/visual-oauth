@@ -76,12 +76,13 @@ const ToolExplanationContent = () => (
     <Grid centered>
       <Grid.Row>
         <iframe
-          src="https://giphy.com/embed/26Ff4Ci2RNT1H1zb2"
           width="480"
           height="360"
           frameBorder="0"
-          class="giphy-embed"
           allowFullScreen
+          title="hey-arnold-gif"
+          className="giphy-embed"
+          src="https://giphy.com/embed/26Ff4Ci2RNT1H1zb2"
         ></iframe>
       </Grid.Row>
     </Grid>

@@ -5,13 +5,8 @@ import { extractQsParams } from "../utils";
 
 import Step from "../components/Step";
 import stepIcons from "../components/Step/StepIcon";
-import CodeSnippet from "../components/CodeSnippet";
-import BehindTheScenesCode from "../components/BehindTheScenesCode";
 import { TogglingRequestResponseCards } from "../components/RequestResponseCards";
-import {
-  StepDescription,
-  StepInstruction,
-} from "../components/Step/StepMessage";
+import { StepInstruction } from "../components/Step/StepMessage";
 
 const sendAuthCode = async (state, setState) => {
   const codeEndpoint = `${process.env.REACT_APP_API_DOMAIN}/oauth/code`;

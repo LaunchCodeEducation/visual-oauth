@@ -32,9 +32,13 @@ const VisualFlow = props => {
   );
 };
 
+const iconShape = PropTypes.shape({
+  icon: stepIconEnum.isRequired,
+});
+
 const iconsType = PropTypes.shape({
-  sourceIcon: stepIconEnum.isRequired,
-  targetIcon: stepIconEnum.isRequired,
+  source: iconShape.isRequired,
+  target: iconShape.isRequired,
 });
 
 VisualFlow.propTypes = {

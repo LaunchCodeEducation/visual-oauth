@@ -2,12 +2,7 @@ import React, { useState } from "react";
 
 import Step from "../components/Step";
 import { StepInstruction } from "../components/Step/StepMessage";
-import {
-  useUseAccessTokenState,
-  buildSetPublicUserData,
-  GitHubUserRequestActions,
-  buildSetPrivilegedUserData,
-} from "../components/GitHubUserRequestActions";
+import { GitHubUserRequestActions } from "../components/GitHubUserRequestActions";
 
 const UseAccessTokenStepInstructions = props => {
   const { setStepStatus } = props;
