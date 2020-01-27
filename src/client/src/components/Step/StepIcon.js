@@ -17,14 +17,14 @@ export const stepIconProps = {
     ...sharedIconProps,
     name: "server",
     color: "blue",
-    label: "App Back-end (Server)",
+    label: "Client Back-end (Server)",
   },
 
   frontend: {
     ...sharedIconProps,
     name: "user",
     color: "black",
-    label: "App Front-end (Browser)",
+    label: "Client Front-end (Browser)",
   },
 
   provider: {

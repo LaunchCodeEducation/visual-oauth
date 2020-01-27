@@ -19,7 +19,7 @@ const VisualOAuth = () => {
       <Step4 reportStepStatus={setStepsComplete} />
 
       {/* display once OAuth Flow is complete */}
-      {oAuthStepsAreComplete && (
+      {
         <Grid centered>
           <Grid.Row>
             <iframe
@@ -31,13 +31,8 @@ const VisualOAuth = () => {
               allowFullScreen
             ></iframe>
           </Grid.Row>
-          <p>
-            <a href="https://giphy.com/gifs/filmeditor-will-ferrell-elf-3otPoS81loriI9sO8o">
-              via GIPHY
-            </a>
-          </p>
         </Grid>
-      )}
+      }
 
       {/* After OAuth usage */}
       <UseAccessToken />

@@ -49,19 +49,19 @@ const ToolExplanationContent = () => (
             url="https://developer.github.com/apps/building-oauth-apps/"
           />{" "}
           as the Provider to visualize the Authorization Code Grant Flow. If you
-          are viewing this page on the web then the Visual OAuth App has already
-          been registered with GitHub. If you are running Visual Oauth locally
-          then you registered your own OAuth App with GitHub and stored your
-          App's credentials in the setup script.
+          are viewing this page on the web then the Visual OAuth Client has
+          already been registered with GitHub. If you are running Visual Oauth
+          locally then you registered your own OAuth Client App with GitHub and
+          stored your Client's credentials in the setup script.
         </p>
         <p>
           Below you can test out requesting your public and private User data
           from GitHub. You will notice that GitHub rejects the private data
-          request because our App has not yet been authorized by the User (you)
-          to do so. By completing the OAuth handshake (in the first four steps)
-          GitHub will grant an Access Token to our App. In the final step we
-          will use the Access Token granted to our App to issue the privileged
-          data request succesfully!
+          request because our Client has not yet been authorized by the User
+          (you) to do so. By completing the OAuth handshake (in the first four
+          steps) GitHub will grant an Access Token to our Client. In the final
+          step we will use the Access Token granted to our Client to issue the
+          privileged data request succesfully!
         </p>
       </Grid.Row>
     </Grid>
@@ -84,11 +84,6 @@ const ToolExplanationContent = () => (
           allowFullScreen
         ></iframe>
       </Grid.Row>
-      <p>
-        <a href="https://giphy.com/gifs/heyarnold-nickelodeon-hey-arnold-26Ff4Ci2RNT1H1zb2">
-          via GIPHY
-        </a>
-      </p>
     </Grid>
   </section>
 );

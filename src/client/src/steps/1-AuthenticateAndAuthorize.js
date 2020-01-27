@@ -59,18 +59,18 @@ const AuthStepDescription = () => {
     </>,
     <>
       The link includes querystring parameters holding the{" "}
-      {stepIcons.backend.inlineCustom("App's (Back-end)")} <b>client ID</b> and{" "}
+      {stepIcons.backend.inlineCustom("Client's (Back-end)")} <b>client ID</b> and{" "}
       <b>redirect URI</b> (<code>?client_id=XXX&amp;redirect_uri=YYY</code>)
     </>,
     <>
       These parameters are used so the {stepIcons.provider.inline} knows which{" "}
-      {stepIcons.backend.inlineCustom("App")} is being authorized (
+      {stepIcons.backend.inlineCustom("Client")} is being authorized (
       <b>client ID</b>) and where to send the User (<b>redirect URI</b>) after
       success
     </>,
     <>
       The User chooses to <b>authorize</b> the{" "}
-      {stepIcons.backend.inlineCustom("App's")} permission requests by accepting
+      {stepIcons.backend.inlineCustom("Client's")} permission requests by accepting
       them on the {stepIcons.provider.inline} page
     </>,
     <>
@@ -81,7 +81,7 @@ const AuthStepDescription = () => {
       By using OAuth the User is able to <b>authorize</b> the access /
       management of their {stepIcons.provider.inline} data{" "}
       <b>without exposing their login credentials</b> to the{" "}
-      {stepIcons.backend.inlineCustom("App")}
+      {stepIcons.backend.inlineCustom("Client")}
     </>,
   ];
 
@@ -91,7 +91,7 @@ const AuthStepDescription = () => {
 const AuthStepInstruction = () => {
   const list = [
     "Click the button below to begin the OAuth Authorization Code Grant Flow",
-    "You will be sent to the Provider page to authenticate and authorize the App's permissions request",
+    "You will be sent to the Provider page to authenticate and authorize the Client's permissions request",
     "After authorizing you will be redirected back to this page and can proceed to step 2",
   ];
 
@@ -122,7 +122,7 @@ const AuthStepCode = () => {
 // when the button is clicked the callback function will be executed
 authButton.addEventListener("click", (event) => {
   // the provider URL is customized using query string parameters
-  // client_id is a unique identifier issued to the App when it registers with the Provider
+  // client_id is a unique identifier issued to the Client when it registers with the Provider
   // redirect_uri is the location that the User should be redirected to upon successful authentication and authorization
   const providerURL = "https://provider.com/oauth/authenticate?client_id=XXX&redirect_uri=YYY";
 
@@ -167,8 +167,8 @@ const AuthButton = () => (
 
 const AuthenticateAndAuthorizeStep = () => {
   const stepProps = {
-    statusLabel: "Authorize App Permissions",
-    stepLabel: "Step 1: Authenticate & Authorize App",
+    statusLabel: "Authorize Client Permissions",
+    stepLabel: "Step 1: Authenticate & Authorize Client",
     flowIcons: {
       source: {
         icon: "frontend",

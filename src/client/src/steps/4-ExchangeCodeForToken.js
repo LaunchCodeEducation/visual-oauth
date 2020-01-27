@@ -64,7 +64,7 @@ const StepRequestResponseCards = props => {
     requestBody: sent,
     meta: (
       <span>
-        sent from the {stepIcons.backend.inlineCustom("App (Back-end)")}
+        sent from the {stepIcons.backend.inlineCustom("Client (Back-end)")}
       </span>
     ),
   };
