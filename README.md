@@ -4,8 +4,8 @@ A tool to learn about OAuth in a step-by-step interactive environment.
 
 # Usage
 
-1. clone the application
-2. get GitHub OAuth application credentials
+1. clone this application repo
+2. create a GitHub OAuth Application
 3. set up the application
 4. run the application
 5. view in browser and begin learning!
@@ -14,10 +14,10 @@ A tool to learn about OAuth in a step-by-step interactive environment.
 
 ```sh
 # clone into current directory
-$ git clone https://github.com/the-vampiire/visual-oauth
+$ git clone https://github.com/LaunchCodeEducation/visual-oauth
 
 # optionally give a clone path as the second argument
-$ git clone https://github.com/the-vampiire/visual-oauth /path/to/cloned/repo
+$ git clone https://github.com/LaunchCodeEducation/visual-oauth /path/to/cloned/repo
 ```
 
 > creates the following directory structure
