@@ -1,17 +1,17 @@
 import React from "react";
-import { Grid, Divider, Header } from "semantic-ui-react";
+import { Grid } from "semantic-ui-react";
 
 import OAuthSection from "./OAuth";
-import BackgroundSection from "./Background";
 import ToolExplanation from "./ToolExplanation";
+import AuthenticationAndAuthorization from "./AuthenticationAndAuthorization";
 
 const Introduction = () => {
   return (
     <article>
       <Grid centered>
-        <BackgroundSection sectionLabel="Background Information" />
+        <AuthenticationAndAuthorization sectionLabel="Authentication & Authorization" />
 
-        <OAuthSection sectionLabel="OAuth Information" />
+        <OAuthSection sectionLabel="OAuth 2.0" />
 
         <ToolExplanation sectionLabel="How To Use This Tool" />
       </Grid>

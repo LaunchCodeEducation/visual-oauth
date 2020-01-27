@@ -95,20 +95,20 @@ const RedirectStepDescription = () => {
   const authCodeList = [
     <>
       After the User <b>authorizes</b> the{" "}
-      {stepIcons.backend.inlineCustom("App (Back-end)")} the{" "}
+      {stepIcons.backend.inlineCustom("Client (Back-end)")} the{" "}
       {stepIcons.provider.inline} generates a string called an <b>Auth Code</b>
     </>,
 
     <>
       The <b>Auth Code</b> is a temporary token that uniquely identifies the
       permissions that the User granted to the{" "}
-      {stepIcons.backend.inlineCustom("App (Back-end)")}
+      {stepIcons.backend.inlineCustom("Client (Back-end)")}
     </>,
 
     <>
       The {stepIcons.provider.inline} saves this <b>Auth Code</b> with the{" "}
-      <b>client ID</b> of the {stepIcons.backend.inlineCustom("App (Back-end)")}{" "}
-      so it knows which App is being <b>authorized</b> (discussed in step 4)
+      <b>client ID</b> of the {stepIcons.backend.inlineCustom("Client (Back-end)")}{" "}
+      so it knows which Client is being <b>authorized</b> (discussed in step 4)
     </>,
 
     <>
@@ -163,8 +163,8 @@ const RedirectStepInstruction = props => {
   const { authCode, setAuthCode } = props;
 
   const list = [
-    "After authorizing the App the Provider generates a temporary Auth Code",
-    "In this step the App must extract this Auth Code so it can be sent to the back-end",
+    "After authorizing the Client the Provider generates a temporary Auth Code",
+    "In this step the Client must extract this Auth Code so it can be sent to the back-end",
     "Click the button below to check for and retrieve the Auth Code",
     "If step 1 was successful this code will be present as a querystring parameter (?code=XXX) in the URL",
     "You can see the original querystring in your URL bar and the code itself below after it has been extracted",
@@ -228,7 +228,7 @@ const extractQsParams = () => {
 document.addEventListener('DOMContentLoaded', () => {
   const qsParams = extractQsParams(); // qsParams.code will be the Auth Code
 
-  // logic to submit this code to the App server (step 3)
+  // logic to submit this code to the Client server (step 3)
 });
 
   `;
@@ -250,7 +250,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     
     // code is present
-    // logic to send a request to the App server (step 3)
+    // logic to send a request to the Client server (step 3)
   }
 
   // rest of component / rendering logic

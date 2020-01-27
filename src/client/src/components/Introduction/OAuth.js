@@ -9,15 +9,18 @@ const OAuthContent = () => (
     <Grid padded container>
       <Grid.Row>
         <p>
-          Now that we have learned the fundmental terminologies of User
-          interactions on the web we can begin exploring OAuth. OAuth is{" "}
-          <EasyLink url="https://oauth.net/2/" label="a specification" /> that
-          describes a process for secure delagation of access to a User's data
-          between services. OAuth is at the heart of most User interactions on
-          the modern web. It uses all of the technologies and practices
-          described in the Background Information section. If you find any of
-          the terms seem foreign as you read this section you can learn about
-          them in there.
+          OAuth is{" "}
+          <EasyLink url="https://oauth.net/2/" label="a web specification" />{" "}
+          that describes a process for secure delagation of access to a User's
+          data between services. OAuth is at the heart of most User interactions
+          on the modern web. In fact you have likely used OAuth many times
+          before without realizing it!
+        </p>
+        <p>
+          If the terms <b>Authentication and Authorization</b> sound foreign to
+          you then now would be a good time to visit the Authentication &
+          Authorization section above. Otherwise you are ready to learn about
+          OAuth.
         </p>
       </Grid.Row>
 
@@ -62,12 +65,12 @@ const OAuthContent = () => (
           </p>
 
           <p>
-            OAuth as an interaction involving a <b>User</b> and two services -
-            the <b>Provider</b> and the <b>App</b>. Note that an App is just a
-            third-party or non-Provider service on the web, not necessarily a
-            desktop or mobile application. But those labels are a mouthful to
-            keep track of so in the spirit of simplicity we will refer to them
-            as an App.
+            OAuth is an interaction involving a <b>User</b> and two services -
+            the <b>Provider</b> and the <b>Client</b>. Note that the Client can
+            sometimes be referred to as an <b>App</b> or a <b>Client App</b>.
+            But these do not necessarily mean a desktop or mobile application.
+            We will try to stay consistent by referring to it as a Client
+            throughout this guide.
           </p>
         </>
       </Grid.Row>
@@ -81,8 +84,9 @@ const OAuthContent = () => (
               <p>
                 A main service the User has registered and created credentials
                 for. The Provider holds a User's profile information and any
-                other data associated with its service. This data, in whole or
-                in part, is what an <b>App</b> has interest in.
+                other data associated with its service. In other words Providers
+                are the origin of the User data the <b>Client</b> has interest
+                in.
               </p>
             }
           />
@@ -90,56 +94,87 @@ const OAuthContent = () => (
         <Grid.Column width={8}>
           <Message
             info
-            header="The App"
+            header="The Client"
             content={
               <p>
-                A third-party service the User wants to use. Most often an App
-                needs User data from the <b>Provider</b> for expediting
-                registration. But Apps can also extend behavior of, or{" "}
-                <b>Integrate</b> with, a Provider service by acting on behalf of
-                the User.
+                A third-party service the User wants to use. In the simplest
+                case a Client needs User data from the <b>Provider</b> for
+                expediting registration. But Clients can also extend behavior of
+                a Provider service by acting on behalf of the User. This is
+                called an <b>OAuth Client Integration</b>.
               </p>
             }
           />
         </Grid.Column>
       </Grid.Row>
 
+      <Grid.Row>
+        <Message
+          warning
+          header="Multi-Host Web Applications"
+          content={
+            <>
+              <p>
+                In modern web development applications are often split between a
+                front-end (client) and back-end (API). This{" "}
+                <b>multi-host architecture</b> has numerous benefits but can
+                also be confusing in the context of OAuth!
+              </p>
+              <p>
+                All multi-host means is that{" "}
+                <b>
+                  the front-end is hosted on a different server than the
+                  back-end
+                </b>
+                .
+              </p>
+              <p>
+                In exploring OAuth we will label these as the{" "}
+                <b>Client Front-end (Browser)</b> and{" "}
+                <b>Client Back-end (Server)</b> to avoid ambiguity in
+                identifying the roles each half of the Client are playing.
+              </p>
+            </>
+          }
+        />
+      </Grid.Row>
+
       {/* TODO: consider removing, too wordy */}
       {/* <Grid.Row>
         <p>
-          So what exactly can an App do with User data? In the simplest case
-          Apps will request to read profile information from the Provider in
-          order to expediate their registration process. Afterwards the new
+          So what exactly can a Client do with User data? In the simplest case
+          Clients will request to read profile information from the Provider in
+          order to expedite their registration process. Afterwards the new
           account is associated with the Provider login instead of traditional
           credentials. But they can also <b>Integrate</b> with a Provider to
-          perform actions on behalf of a User. In this case the App will need to
-          request to both read and write User data. The App can then interact
+          perform actions on behalf of a User. In this case the Client will need to
+          request to both read and write User data. The Client can then interact
           with the User's Provider data beyond basic profile information.
         </p>
         <p>
-          For example, the App may provide a customized UI for interacting with
+          For example, the Client may provide a customized UI for interacting with
           Provider data. This customization could include new features like
           buttons that automate behavior for the User. When the User clicks the
-          button the App will make requests to the Provider on behalf of the
+          button the Client will make requests to the Provider on behalf of the
           User. The end effect is the same - User data has been changed - but
-          the App automated the actions instead of requiring the User to perform
+          the Client automated the actions instead of requiring the User to perform
           them manually. These sorts of features are valuable and convenient to
-          the User but require a third-party, the App, to perform
+          the User but require a third-party, the Client, to perform
           programatically.
         </p>
       </Grid.Row> */}
 
-      <Header size="medium" content="Why OAuth?" />
+      <Header size="medium" content="Why Do We Need OAuth?" />
 
       <Grid.Row centered>
         <Message
-          warning
+          error
           header="The Problems OAuth Aims to Solve"
           list={[
-            "Apps need User data for registration",
+            "Clients need User data for registration",
             "But Users are tired of registering and managing unique accounts for every new service they want to use",
-            "Apps need to Integrate with a Provider to customize the User's experience and act on their behalf",
-            "But Users do not feel safe sharing their Provider credentials and unrestricted account access with the App",
+            "Clients need to Integrate with a Provider to customize the User's experience and act on their behalf",
+            "But Users do not feel safe sharing their Provider credentials and unrestricted account access with the Client",
           ]}
         />
       </Grid.Row>
@@ -168,41 +203,43 @@ const OAuthContent = () => (
 
         <p>
           In essence this problem boils down to a User who is tired of filling
-          out yet another registration form. And an App that needs registration
-          data as part of its business requirements. The Provider already has
-          the User data but the App needs a way to be <b>authorized</b> by the
-          User to access that data.
+          out yet another registration form. And a Client that needs
+          registration data as part of its business requirements. The Provider
+          already has the User data but the Client needs a way to be{" "}
+          <b>authorized</b> by the User to access that data.
         </p>
       </Grid.Row>
       <Grid.Row>
         <Header size="medium" content="Example: Integrating With a Provider" />
 
         <p>
-          Let's consider another scenario where a User wants an App to perform
+          Let's consider another scenario where a User wants a Client to perform
           some actions on their behalf. One of my favorite iOS apps, Apollo (no
           affiliation I just really love it), is a wrapper around Reddit. It
           provides a fantastic user interface and many extra features that
           neither the native Reddit site nor its iOS app support. In order for
           the app to function it needs to be able to read my Reddit data like my
           subreddits and messages. Since I am not on the native Reddit site it
-          also needs to be able to act on my behalf like when I want to submit a
-          comment through its interface.
+          also needs to be able to act, or write data, on my behalf. For
+          example, when I want to submit a heavily downvoted comment through the
+          Apollo interface. As is tradition.
         </p>
 
         <p>
-          Once again the App (Apollo) needs to access User (my) data from the
-          Provider (Reddit). In this scenario the App now needs both read and
-          write access to User data in order to operate. At the same time the
-          User needs to be in control over what data access the App has.
-          Unrestricted access is a dangerous game that the User should at the
-          very least consciously permit.
+          Once again the Client [Apollo] needs to access [my] User data from the
+          Provider [Reddit]. In this scenario the Client now needs both read and
+          write access to User data in order to operate.{" "}
+          <b>
+            At the same time the User needs to be in control over what data
+            access the Client has.
+          </b>
         </p>
 
         <p>
-          Apollo should not be able to reset my password or delete my account.
-          Neither of those are part of its responsibilities. The User (I) should
-          be able to <b>authorize specific access</b> for what the App can and
-          can not do.
+          Apollo should not be able to reset my password nor delete my account.
+          Neither of those are part of its responsibilities. The User [I] should
+          be able to <b>authorize specific access</b> for what the Client
+          [Apollo] can and can not do to their Provider [Reddit] data.
         </p>
       </Grid.Row>
 
@@ -210,23 +247,29 @@ const OAuthContent = () => (
         <Header size="medium" content="The OAuth Solution" />
 
         <p>
-          In both these scenarios we see three players who are in need of a way
-          to delegate access to data. The User could give their Provider
-          credentials directly to the App to let it log in and acess all of the
-          User data. But we just learned about how important it is for a User to
-          protect their authentication credentials. While it would be quick and
-          convenient to share these credentials it comes at too great a cost in
-          security. Not only would the User be exposing their username and
-          password to a third party but they would also be giving implicit
-          authorization to the App to do <b>anything it wants</b> to the data
-          once it logs in.{" "}
+          In both these scenarios we see{" "}
+          <b>
+            three players who are in need of a way to share information securely
+            by delegating access to data.
+          </b>
+        </p>
+
+        <p>
+          The User could give their Provider credentials directly to the Client
+          to let it log in and acess all of their Provider data. But we just
+          learned about how important it is for a User to protect their
+          authentication credentials. While it would be quick and convenient to
+          share these credentials it comes at too great a cost in security. Not
+          only would the User be exposing their username and password to a third
+          party but they would also be giving implicit authorization to the
+          Client to do <b>anything it wants</b> to the data once it logs in.{" "}
           <b>This is clearly neither a safe nor acceptable mechanism!</b>
         </p>
 
         <p>
           OAuth is the solution to these problems because it allows for a User
-          to securely delegate specific access of its Provider data to an App.
-          It allows for an App to request <b>scoped</b> access to the User's
+          to securely delegate specific access of its Provider data to a Client.
+          It allows for a Client to request <b>scoped</b> access to the User's
           Provider data and allows the User to review and <b>authorize</b> this
           request. All without ever requiring the User to expose their
           credentials!
@@ -238,11 +281,11 @@ const OAuthContent = () => (
           warning
           header="All the Players Are Happy"
           list={[
-            "The App can request access to the Provider data it needs from the User",
-            "The User can review and authorize the requested access without exposing its credentials to the App",
+            "The Client can request access to the Provider data it needs from the User",
+            "The User can review and authorize the requested access without exposing its credentials to the Client",
             "The Provider is absolved of liability in sharing the User's data by the User's explicit permission to do so",
-            "The User has the ability to revoke the App's access at any time",
-            "The App has the right to refuse the use of all or parts of its service depending on what Provider access is revoked",
+            "The User has the ability to revoke the Client's access at any time",
+            "The Client has the right to refuse the use of all or parts of its service depending on what Provider access is revoked",
           ]}
         />
       </Grid.Row>
@@ -251,16 +294,16 @@ const OAuthContent = () => (
         <Header size="medium" content="Access Tokens" />
         <p>
           OAuth accomplishes these solutions through a multi-step process that,
-          when succesful, results in the Provider <b>granting</b> the App an{" "}
-          <b>Access Token</b>. The App then uses this token to <b>access</b> the
-          permitted User data from the Provider. The App may use the Access
-          Token for as long as the data access remains granted.
+          when succesful, results in the Provider <b>granting</b> the Client an{" "}
+          <b>Access Token</b>. The Client then uses this token to <b>access</b>{" "}
+          the permitted User data from the Provider. The Client may use the
+          Access Token for as long as the data access remains granted.
         </p>
 
         <p>
           An Access Token is a string that is used by the Provider to authorize
-          the requests issue by the App. It can be in either an <b>Opaque</b> or{" "}
-          <b>Signed</b>
+          the requests issued by the Client. It can be in either an{" "}
+          <b>Opaque</b> or <b>Signed</b>
           format. In both cases the Access Token's validity and the context of
           the request are verified by the Provider in determining whether the
           request will be fulfilled.
@@ -275,8 +318,8 @@ const OAuthContent = () => (
             header="Opaque Access Token"
             list={[
               "A random string persisted by the Provider in a token database",
-              "The Access Token is looked up on every request issued by the App",
-              "The lookup determines whether the App's request is authorized depending on permitted scopes associated with it",
+              "The Access Token is looked up on every request issued by the Client",
+              "The lookup determines whether the Client's request is authorized depending on permitted scopes associated with it",
               "Revocation of access (by the User or Provider) is instantaneous through removing the identifier from the token database",
               "Does not have an expiration",
               "The need for constant lookups trades scalability for immediate power of revocation",
@@ -289,7 +332,7 @@ const OAuthContent = () => (
             compact
             header="Signed Access Token"
             list={[
-              "A JWT formatted string containing the scopes permitted to the requesting App",
+              "A JWT formatted string containing the scopes permitted to the requesting Client",
               "Digitally signed by the Provider to prove authenticity without requiring persistence or lookup when used",
               "Usually has a short period of validity (expiration time)",
               "Revocation of access (by the User or Provider) is fulfilled when the last issued Access Token expires",
@@ -315,24 +358,24 @@ const OAuthContent = () => (
           cases from single and multi-host web applications to mobile
           applications. All of the flows conclude with the creation of the
           Access Token. These flows differ in their mechanisms, and levels of
-          security, and should be chosen depending on the design of the App.
+          security, and should be chosen depending on the design of the Client.
         </p>
 
         <p>
           The most common flow used by web developers is the{" "}
           <b>Authorization Code Grant Flow</b> (ACGF). This flow is used in
           multi-host web applications that serve their <b>Front-end (client)</b>{" "}
-          and <b>Back-end (API)</b> separately. Like the Visual OAuth App you
+          and <b>Back-end (API)</b> separately. Like the Visual OAuth Client you
           are using right now!
         </p>
         <p>
-          In the ACGF the App has its own identity credentials which it uses to
-          authenticate with the Provider. These credentials called the{" "}
+          In the ACGF the Client has its own identity credentials which it uses
+          to authenticate with the Provider. These credentials called the{" "}
           <b>Client ID</b> and <b>Client Secret</b> behave just like a username
           and password. The Provider associates the scopes granted by the User
-          to the App by its unique Client ID. It then uses the Access Token
-          whenever the App makes a request for User data to look up these scopes
-          and authorize the request.
+          to the Client by its unique Client ID. It then uses the Access Token
+          whenever the Client makes a request for User data to look up these
+          scopes and authorize the request.
         </p>
       </Grid.Row>
 
@@ -341,14 +384,14 @@ const OAuthContent = () => (
           warning
           header="Authorization Code Grant Flow"
           list={[
-            "The App registers itself with the Provider to get its own authenticating credentials (Client ID and Secret)",
-            "The App creates a link to the Provider page for requesting access from the User",
+            "The Client registers itself with the Provider to get its own authenticating credentials (Client ID and Secret)",
+            "The Client creates a link to the Provider page for requesting access from the User",
             "The User authenticates themselves with the Provider and is sent to a permissions page",
-            "The Provider page displays the permissions (scopes) the App is requesting for the User to review",
+            "The Provider page displays the permissions (scopes) the Client is requesting for the User to review",
             "The Provider generates a temporary Authorization Code",
-            "The User accepts the permissions and is redirected back to the App with the Authorization Code in a query string",
-            "The App exchanges the Authorization Code along with its credentials with the Provider",
-            "The Provider generates an Access Token and sends it back in its response to the APp",
+            "The User accepts the permissions and is redirected back to the Client with the Authorization Code in a query string",
+            "The Client exchanges the Authorization Code along with its credentials with the Provider",
+            "The Provider generates an Access Token and sends it back in its response to the Client",
           ]}
         />
       </Grid.Row>
@@ -356,17 +399,21 @@ const OAuthContent = () => (
   </section>
 );
 
-export default props => (
-  <>
-    <Divider
-      horizontal
-      section
-      content={<Header size="huge" content="OAuth Information" />}
-    />
-    <TogglingContent
-      defaultVisibility={false}
-      content={<OAuthContent />}
-      buttonLabel={props.sectionLabel}
-    />
-  </>
-);
+export default props => {
+  const { sectionLabel } = props;
+
+  return (
+    <>
+      <Divider
+        horizontal
+        section
+        content={<Header size="huge" content={sectionLabel} />}
+      />
+      <TogglingContent
+        defaultVisibility={false}
+        content={<OAuthContent />}
+        buttonLabel={props.sectionLabel}
+      />
+    </>
+  );
+};

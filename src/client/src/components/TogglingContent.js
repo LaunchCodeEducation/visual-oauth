@@ -5,13 +5,7 @@ import { Accordion, Grid, Button } from "semantic-ui-react";
 import { nodeOrElementType } from "../utils";
 
 const TogglingContent = props => {
-  const {
-    trigger,
-    content,
-    children,
-    buttonLabel,
-    defaultVisibility = false,
-  } = props;
+  const { trigger, content, children, buttonLabel, defaultVisibility } = props;
   const [contentVisible, setContentVisibility] = useState(defaultVisibility);
 
   return (
@@ -42,11 +36,16 @@ const TogglingContent = props => {
   );
 };
 
+TogglingContent.defaultProps = {
+  defaultVisibility: false,
+};
+
 TogglingContent.propTypes = {
   trigger: PropTypes.element,
   content: nodeOrElementType,
   children: nodeOrElementType,
   buttonLabel: PropTypes.string,
+  defaultVisibility: PropTypes.bool,
 };
 
 export default TogglingContent;

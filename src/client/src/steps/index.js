@@ -23,19 +23,15 @@ const VisualOAuth = () => {
         <Grid centered>
           <Grid.Row>
             <iframe
-              src="https://giphy.com/embed/3otPoS81loriI9sO8o"
               width="640"
               height="480"
+              title="elf-gif"
               frameBorder="0"
-              class="giphy-embed"
               allowFullScreen
+              className="giphy-embed"
+              src="https://giphy.com/embed/3otPoS81loriI9sO8o"
             ></iframe>
           </Grid.Row>
-          <p>
-            <a href="https://giphy.com/gifs/filmeditor-will-ferrell-elf-3otPoS81loriI9sO8o">
-              via GIPHY
-            </a>
-          </p>
         </Grid>
       )}
 

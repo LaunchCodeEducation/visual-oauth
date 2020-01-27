@@ -8,12 +8,13 @@ import { nodeOrElementType } from "../../utils";
 
 const Step = props => {
   const {
-    stepCode,
+    // TODO: uncomment when all steps have these sections completed
+    // stepCode,
+    // stepDescription,
     flowIcons,
     stepLabel,
     stepStatus,
     statusLabel,
-    stepDescription,
     stepInstruction,
   } = props;
 
@@ -72,10 +73,11 @@ Step.propTypes = {
   stepStatus: PropTypes.bool,
   stepLabel: PropTypes.string.isRequired,
   statusLabel: PropTypes.string.isRequired,
-  stepCode: nodeOrElementType.isRequired,
-  stepDescription: nodeOrElementType.isRequired,
   stepInstruction: nodeOrElementType.isRequired,
   flowIcons: StepVisualFlow.iconsType.isRequired,
+  // TODO: uncomment when all steps have these sections completed
+  // stepCode: nodeOrElementType.isRequired,
+  // stepDescription: nodeOrElementType.isRequired,
 };
 
 export default Step;
