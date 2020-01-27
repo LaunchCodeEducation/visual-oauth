@@ -168,7 +168,7 @@ const AuthButton = () => (
 const AuthenticateAndAuthorizeStep = () => {
   const stepProps = {
     statusLabel: "Authorize App Permissions",
-    stepLabel: "Authenticate & Authorize App",
+    stepLabel: "Step 1: Authenticate & Authorize App",
     flowIcons: {
       source: {
         icon: "frontend",

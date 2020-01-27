@@ -299,7 +299,7 @@ const RedirectStep = () => {
 
   const stepProps = {
     statusLabel: "Redirect With Auth Code",
-    stepLabel: "Extract Auth Code After Redirect",
+    stepLabel: "Step 2: Extract Auth Code After Redirect",
     flowIcons: {
       source: {
         icon: "provider",

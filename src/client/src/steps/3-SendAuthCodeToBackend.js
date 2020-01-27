@@ -132,7 +132,7 @@ const SendAuthCodeToBackendStep = () => {
   const stepProps = {
     statusLabel: "Send Auth Code",
     stepStatus: state.stepStatus,
-    stepLabel: "Send Auth Code to Back-end",
+    stepLabel: "Step 3: Send Auth Code to Back-end",
     flowIcons: {
       source: {
         icon: "frontend",
