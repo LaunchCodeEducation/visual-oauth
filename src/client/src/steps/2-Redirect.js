@@ -65,7 +65,7 @@ const AuthCodeDisplayWindow = props => {
                     name={hasAuthCode ? "lock open" : "lock"}
                   />
                 }
-                meta={hasAuthCode ? "Code Found!" : "No Code Found"}
+                meta={hasAuthCode ? "Auth Code Found!" : "No Auth Code Found"}
                 description={
                   hasAuthCode ? "Hover to View" : "Click Above to Check"
                 }
@@ -76,7 +76,7 @@ const AuthCodeDisplayWindow = props => {
             <Card>
               <Card.Content
                 description={authCode}
-                meta="Authorization Code"
+                meta="Auth Code"
                 header={<Icon name="key" color="yellow" size="large" />}
               />
             </Card>
@@ -90,31 +90,29 @@ const AuthCodeDisplayWindow = props => {
 //-- step components --//
 
 const RedirectStepDescription = () => {
-  const authCodeHeader = "Provider creates an authorization code";
+  const authCodeHeader = "Provider creates an Auth Code";
 
   const authCodeList = [
     <>
       After the User <b>authorizes</b> the{" "}
       {stepIcons.backend.inlineCustom("App (Back-end)")} the{" "}
-      {stepIcons.provider.inline} generates a string called an{" "}
-      <b>authorization code</b>
+      {stepIcons.provider.inline} generates a string called an <b>Auth Code</b>
     </>,
 
     <>
-      The <b>authorization code</b> is a temporary token that uniquely
-      identifies the permissions that the User granted to the{" "}
+      The <b>Auth Code</b> is a temporary token that uniquely identifies the
+      permissions that the User granted to the{" "}
       {stepIcons.backend.inlineCustom("App (Back-end)")}
     </>,
 
     <>
-      The {stepIcons.provider.inline} saves this <b>authorization code</b> with
-      the <b>client ID</b> of the{" "}
-      {stepIcons.backend.inlineCustom("App (Back-end)")} so it knows which App
-      is being <b>authorized</b> (discussed in step 4)
+      The {stepIcons.provider.inline} saves this <b>Auth Code</b> with the{" "}
+      <b>client ID</b> of the {stepIcons.backend.inlineCustom("App (Back-end)")}{" "}
+      so it knows which App is being <b>authorized</b> (discussed in step 4)
     </>,
 
     <>
-      The {stepIcons.provider.inline} appends the <b>authorization code</b> as a
+      The {stepIcons.provider.inline} appends the <b>Auth Code</b> as a
       querystring parameter (<code>?code=XXX</code>) onto the{" "}
       <b>redirect URI</b> so it is available to the {stepIcons.frontend.inline}{" "}
       after redirection
@@ -122,19 +120,19 @@ const RedirectStepDescription = () => {
   ];
 
   const redirectHeader =
-    "Provider redirects to the Front-end with the authorization code";
+    "Provider redirects to the Front-end with the Auth Code";
 
   const redirectList = [
     <>
       The {stepIcons.provider.inline} redirects to the{" "}
       {stepIcons.frontend.inline} at the <b>redirect URI</b> (with the{" "}
-      <b>authorization code</b> appended)
+      <b>Auth Code</b> appended)
     </>,
 
     <>
       In this step the {stepIcons.frontend.inline} code is responsible for
-      extracting this <b>authorization code</b> from the URL so that it can be
-      sent in a request to the {stepIcons.backend.inline} (discussed in step 3)
+      extracting this <b>Auth Code</b> from the URL so that it can be sent in a
+      request to the {stepIcons.backend.inline} (discussed in step 3)
     </>,
 
     <>
@@ -145,8 +143,8 @@ const RedirectStepDescription = () => {
     </>,
 
     <>
-      The <b>authorization code</b> is used to transport proof that the
-      authorization permissions have been granted from the{" "}
+      The <b>Auth Code</b> is used to transport proof that the authorization
+      permissions have been granted from the{" "}
       {stepIcons.frontend.inlineCustom("Front-end (User)")} to the{" "}
       {stepIcons.backend.inline} where it will be used in the next steps
     </>,
@@ -165,9 +163,12 @@ const RedirectStepInstruction = props => {
   const { authCode, setAuthCode } = props;
 
   const list = [
-    "Click the button below to check for and retrieve the authorization code",
+    "After authorizing the App the Provider generates a temporary Auth Code",
+    "In this step the App must extract this Auth Code so it can be sent to the back-end",
+    "Click the button below to check for and retrieve the Auth Code",
     "If step 1 was successful this code will be present as a querystring parameter (?code=XXX) in the URL",
     "You can see the original querystring in your URL bar and the code itself below after it has been extracted",
+    "Once the code has been extracted you can proceed to step 3",
   ];
 
   const extra = (
@@ -225,7 +226,7 @@ const extractQsParams = () => {
 // this script would ONLY be included in the redirect page HTML
 // https://developer.mozilla.org/en-US/docs/Web/API/Document/DOMContentLoaded_event
 document.addEventListener('DOMContentLoaded', () => {
-  const qsParams = extractQsParams(); // qsParams.code will be the authorization code
+  const qsParams = extractQsParams(); // qsParams.code will be the Auth Code
 
   // logic to submit this code to the App server (step 3)
 });
@@ -297,12 +298,15 @@ const RedirectStep = () => {
   const [authCode, setAuthCode] = useState(null);
 
   const stepProps = {
-    stepNumber: 2,
     statusLabel: "Redirect With Auth Code",
-    stepName: "Redirect & Authorization Code",
+    stepLabel: "Step 2: Extract Auth Code After Redirect",
     flowIcons: {
-      sourceIcon: "provider",
-      targetIcon: "frontend",
+      source: {
+        icon: "provider",
+      },
+      target: {
+        icon: "frontend",
+      },
     },
     stepStatus: getStepStatus(authCode),
     stepCode: <RedirectStepCode />,

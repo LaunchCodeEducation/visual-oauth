@@ -6,9 +6,10 @@ import { stepIconEnum, stepIconProps } from "./StepIcon";
 
 const VisualFlow = props => {
   const { icons, stepStatus, statusLabel } = props;
+  const { source, target } = icons;
 
-  const sourceIconProps = stepIconProps[icons.sourceIcon];
-  const targetIconProps = stepIconProps[icons.targetIcon];
+  const sourceIconProps = stepIconProps[source.icon];
+  const targetIconProps = stepIconProps[target.icon];
   const statusIconProps = stepIconProps.status[stepStatus];
 
   return (

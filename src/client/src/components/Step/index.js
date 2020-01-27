@@ -10,7 +10,7 @@ const Step = props => {
   const {
     stepCode,
     flowIcons,
-    stepNumber,
+    stepLabel,
     stepStatus,
     statusLabel,
     stepDescription,
@@ -20,7 +20,7 @@ const Step = props => {
   return (
     <Grid container centered padded>
       <Divider horizontal section>
-        <Header size="huge" content={`Step ${stepNumber}`} />
+        <Header size="huge" content={stepLabel} />
       </Divider>
 
       <Grid.Row columns={2}>
@@ -42,20 +42,22 @@ const Step = props => {
               content={stepInstruction}
             />
           </Grid.Row>
-          {stepDescription && (
+          {/* TODO: uncomment when all sections have step description */}
+          {/* {stepDescription && (
             <Grid.Row>
               <TogglingContent
                 buttonLabel="Description"
                 content={stepDescription}
               />
             </Grid.Row>
-          )}
+          )} */}
 
-          {stepCode && (
+          {/* TODO: uncomment when all sections have source code */}
+          {/* {stepCode && (
             <Grid.Row>
               <TogglingContent buttonLabel="Source" content={stepCode} />
             </Grid.Row>
-          )}
+          )} */}
         </Grid.Column>
       </Grid.Row>
     </Grid>
@@ -68,6 +70,7 @@ Step.defaultProps = {
 
 Step.propTypes = {
   stepStatus: PropTypes.bool,
+  stepLabel: PropTypes.string.isRequired,
   statusLabel: PropTypes.string.isRequired,
   stepCode: nodeOrElementType.isRequired,
   stepDescription: nodeOrElementType.isRequired,

@@ -66,14 +66,8 @@ const RequestResponseCards = props => {
 
   return (
     <Grid centered padded>
-      {/* <Grid.Row columns={2}>
-        <Grid.Column width={8}> */}
       <RequestCard {...requestData} />
-      {/* </Grid.Column> */}
-      {/* <Grid.Column width={8}> */}
       <ResponseCard {...responseData} />
-      {/* </Grid.Column> */}
-      {/* </Grid.Row> */}
     </Grid>
   );
 };

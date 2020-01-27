@@ -10,6 +10,7 @@ import {
   StepDescription,
   StepInstruction,
 } from "../components/Step/StepMessage";
+import { extractQsParams } from "../utils";
 
 //-- util functions --//
 
@@ -89,10 +90,9 @@ const AuthStepDescription = () => {
 
 const AuthStepInstruction = () => {
   const list = [
-    "Click the button below to begin the OAuth authorization code flow",
-    "You will be redirected back to this page afterwards to learn about step 2",
-    "The minimal amount of user data from the Provider will be requested",
-    "None of this data is stored or used for any purpose beyond displaying it to you in the final step of the flow",
+    "Click the button below to begin the OAuth Authorization Code Grant Flow",
+    "You will be sent to the Provider page to authenticate and authorize the App's permissions request",
+    "After authorizing you will be redirected back to this page and can proceed to step 2",
   ];
 
   const extra = (
@@ -167,16 +167,20 @@ const AuthButton = () => (
 
 const AuthenticateAndAuthorizeStep = () => {
   const stepProps = {
-    stepNumber: 1,
-    statusLabel: "Redirect with Client ID",
-    stepName: "Authentication & Authorization",
+    statusLabel: "Authorize App Permissions",
+    stepLabel: "Step 1: Authenticate & Authorize App",
     flowIcons: {
-      sourceIcon: "frontend",
-      targetIcon: "provider",
+      source: {
+        icon: "frontend",
+      },
+      target: {
+        icon: "provider",
+      },
     },
     stepCode: <AuthStepCode />,
     stepDescription: <AuthStepDescription />,
     stepInstruction: <AuthStepInstruction />,
+    stepStatus: Boolean(extractQsParams().code) || null,
   };
 
   return <Step {...stepProps} />;

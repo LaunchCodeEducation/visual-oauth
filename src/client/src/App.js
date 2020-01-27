@@ -1,17 +1,14 @@
 import React from "react";
-import { Container, Header, Divider } from "semantic-ui-react";
+import { Container, Divider } from "semantic-ui-react";
 
 import VisualOAuth from "./steps";
-import Introduction from "./components/Introduction";
+import Title from "./components/Title";
+import Introduction from "./components/Introduction/";
 
 function App() {
   return (
-    <Container style={{ margin: "50px" }}>
-      <Header
-        size="huge"
-        textAlign="center"
-        content="Learn OAuth Step-By-Step"
-      />
+    <Container style={{ margin: "25px", fontSize: "1.2rem" }}>
+      <Title />
 
       <Introduction />
 
