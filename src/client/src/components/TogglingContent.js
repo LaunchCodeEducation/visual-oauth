@@ -5,7 +5,14 @@ import { Accordion, Grid, Button } from "semantic-ui-react";
 import { nodeOrElementType } from "../utils";
 
 const TogglingContent = props => {
-  const { trigger, content, children, buttonLabel, defaultVisibility } = props;
+  const {
+    trigger,
+    content,
+    children,
+    buttonLabel,
+    buttonSize,
+    defaultVisibility,
+  } = props;
   const [contentVisible, setContentVisibility] = useState(defaultVisibility);
 
   return (
@@ -22,8 +29,9 @@ const TogglingContent = props => {
             <Button
               basic
               color="blue"
+              size={buttonSize}
               onClick={() => setContentVisibility(!contentVisible)}
-              content={`${contentVisible ? "Hide " : "Show "} ${buttonLabel}`}
+              content={`${contentVisible ? "Hide " : "View "} ${buttonLabel}`}
             />
           </Accordion.Title>
         )}
@@ -37,6 +45,7 @@ const TogglingContent = props => {
 };
 
 TogglingContent.defaultProps = {
+  buttonSize: "huge",
   defaultVisibility: false,
 };
 
@@ -46,6 +55,7 @@ TogglingContent.propTypes = {
   children: nodeOrElementType,
   buttonLabel: PropTypes.string,
   defaultVisibility: PropTypes.bool,
+  buttonSize: PropTypes.oneOf(["small", "medium", "large", "huge", "massive"]),
 };
 
 export default TogglingContent;
