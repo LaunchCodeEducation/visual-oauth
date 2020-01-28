@@ -114,9 +114,9 @@ const ExchangeCodeForTokenStepInstructions = props => {
 
   const instructions = [
     "In this final step the back-end receives the Auth Code and exchanges it with the Provider for an Access Token",
-    "The back-end sends the exchange request to the Provider with its authentication credentials (Client ID and Secret) along with the Auth Code",
+    "The Client back-end sends a request to the Provider with its authentication credentials (Client ID and Secret), the Auth Code and some additional metadata",
     "Click the button below to initiate the Access Token exchange process",
-    "You can then view the request sent by the back-end and the response it received from the Provider",
+    "You can then view the request sent by the Client back-end and the response it received from the Provider",
   ];
 
   const extra = (
@@ -165,7 +165,7 @@ const ExchangeCodeForTokenStep = props => {
     stepNumber: 4,
     stepStatus: state.stepStatus,
     statusLabel: "Request Access Token",
-    stepLabel: "Step 4: Exchange Auth Code For Access Token",
+    stepLabel: "Step 4: Client Back-end Exchanges Auth Code For Access Token",
     flowIcons: {
       source: {
         icon: "backend",

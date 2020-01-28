@@ -16,7 +16,6 @@ const UseAccessTokenStepInstructions = props => {
     "Next copy the Access Token from the previous step and paste it below to request privileged User data",
     "This data is only accessible by Clients that have been granted an Access Token with the permission scope [read:user]",
     "The Client back-end will act as a proxy by issuing the request to the Provider and sending the response back to the front-end",
-    "You can view the responses below to compare the public and privileged User data",
     "Notice that the privileged User data contains private information like private_gists and private_repo_count that the Provider does not expose publicly",
   ];
 
@@ -44,9 +43,9 @@ const ExchangeCodeForTokenStep = () => {
   const [stepStatus, setStepStatus] = useStepStatus();
 
   const stepProps = {
-    statusLabel: "Request User Data",
+    statusLabel: "Request Private Data",
     stepStatus: stepStatus,
-    stepLabel: "After OAuth: Use the Access Token",
+    stepLabel: "After OAuth Flow: Client Uses the Access Token",
     flowIcons: {
       source: {
         icon: "backend",
