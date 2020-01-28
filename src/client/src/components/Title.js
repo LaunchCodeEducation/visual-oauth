@@ -44,18 +44,25 @@ const Title = () => {
           are ready to absorb more details. Start learning on the surface before
           expanding sections for more information when you are ready to dig
           deeper.
-          {/* </p>
+        </p>
 
-          <p> */} You are encouraged to{" "}
+        <p>
+          {" "}
+          You are encouraged to{" "}
           <EasyLink
             icon="github"
             label="clone the repo"
             url="https://github.com/LaunchCodeEducation/visual-oauth"
           />{" "}
-          and run Visual OAuth locally to explore and modify the source code.
-          The best way to learn more is to get your hands dirty with some
-          tinkering! Step-by-step instructions for running locally are included
-          in the repo and advice on tinkering can be found in the{" "}
+          and run Visual OAuth locally to get the full experience. You will set
+          up your own GitHub OAuth App and will have access to explore the
+          source code. Step-by-step instructions for running locally are
+          included in the repo.
+        </p>
+        <p>
+          When you are ready you can solidify your understanding by getting your
+          hands dirty with some tinkering! Advice on tinkering can be found in
+          the{" "}
           <EasyLink
             icon="github"
             label="TINKER.md file"

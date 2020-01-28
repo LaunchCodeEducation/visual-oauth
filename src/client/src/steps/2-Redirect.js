@@ -107,8 +107,9 @@ const RedirectStepDescription = () => {
 
     <>
       The {stepIcons.provider.inline} saves this <b>Auth Code</b> with the{" "}
-      <b>client ID</b> of the {stepIcons.backend.inlineCustom("Client (Back-end)")}{" "}
-      so it knows which Client is being <b>authorized</b> (discussed in step 4)
+      <b>client ID</b> of the{" "}
+      {stepIcons.backend.inlineCustom("Client (Back-end)")} so it knows which
+      Client is being <b>authorized</b> (discussed in step 4)
     </>,
 
     <>
@@ -163,12 +164,10 @@ const RedirectStepInstruction = props => {
   const { authCode, setAuthCode } = props;
 
   const list = [
-    "After authorizing the Client the Provider generates a temporary Auth Code",
-    "In this step the Client must extract this Auth Code so it can be sent to the back-end",
-    "Click the button below to check for and retrieve the Auth Code",
-    "If step 1 was successful this code will be present as a querystring parameter (?code=XXX) in the URL",
+    "After authorizing the permissions the Provider attaches a temporary Auth Code to the URL that redirects back to the Client",
+    "In this step the Client front-end must extract the Auth Code so it can be sent to the back-end",
     "You can see the original querystring in your URL bar and the code itself below after it has been extracted",
-    "Once the code has been extracted you can proceed to step 3",
+    "Click the button below to check for and retrieve the Auth Code then proceed to step 3",
   ];
 
   const extra = (
@@ -299,7 +298,8 @@ const RedirectStep = () => {
 
   const stepProps = {
     statusLabel: "Redirect With Auth Code",
-    stepLabel: "Step 2: Extract Auth Code After Redirect",
+    // stepLabel: "Step 2: Client Extracts Auth Code After Redirect",
+    stepLabel: "Step 2: Provider Redirects to Client With Auth Code",
     flowIcons: {
       source: {
         icon: "provider",

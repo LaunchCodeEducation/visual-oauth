@@ -59,8 +59,8 @@ const AuthStepDescription = () => {
     </>,
     <>
       The link includes querystring parameters holding the{" "}
-      {stepIcons.backend.inlineCustom("Client's (Back-end)")} <b>client ID</b> and{" "}
-      <b>redirect URI</b> (<code>?client_id=XXX&amp;redirect_uri=YYY</code>)
+      {stepIcons.backend.inlineCustom("Client's (Back-end)")} <b>client ID</b>{" "}
+      and <b>redirect URI</b> (<code>?client_id=XXX&amp;redirect_uri=YYY</code>)
     </>,
     <>
       These parameters are used so the {stepIcons.provider.inline} knows which{" "}
@@ -70,8 +70,8 @@ const AuthStepDescription = () => {
     </>,
     <>
       The User chooses to <b>authorize</b> the{" "}
-      {stepIcons.backend.inlineCustom("Client's")} permission requests by accepting
-      them on the {stepIcons.provider.inline} page
+      {stepIcons.backend.inlineCustom("Client's")} permission requests by
+      accepting them on the {stepIcons.provider.inline} page
     </>,
     <>
       The {stepIcons.provider.inline} then <b>redirects (step 2)</b> to the{" "}
@@ -90,8 +90,9 @@ const AuthStepDescription = () => {
 
 const AuthStepInstruction = () => {
   const list = [
+    "The Client creates a link to the Provider that has its Client ID and the permission scopes it is requesting attached as querystring parameters",
     "Click the button below to begin the OAuth Authorization Code Grant Flow",
-    "You will be sent to the Provider page to authenticate and authorize the Client's permissions request",
+    "The button will send you to the customized Provider link to authenticate and authorize the Client's permission request",
     "After authorizing you will be redirected back to this page and can proceed to step 2",
   ];
 
@@ -168,7 +169,7 @@ const AuthButton = () => (
 const AuthenticateAndAuthorizeStep = () => {
   const stepProps = {
     statusLabel: "Authorize Client Permissions",
-    stepLabel: "Step 1: Authenticate & Authorize Client",
+    stepLabel: "Step 1: User Authenticates & Authorizes the Client",
     flowIcons: {
       source: {
         icon: "frontend",

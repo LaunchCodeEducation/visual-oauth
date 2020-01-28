@@ -90,9 +90,8 @@ const SendAuthCodeStepInstructions = props => {
   const { state } = props;
   const instructions = [
     "Now that the Auth Code has been received and extracted it must be sent to the back-end",
+    "*Normally the Auth Code is sent to the back-end and immediately exchanged for an Access Token (demonstrated in the next step). But these steps have been separated here for demonstration purposes",
     "Click the button below to send the Auth Code to the back-end",
-    "Normally the Auth Code is sent to the back-end and immediately exchanged for an Access Token (demonstrated in the next step). But these steps have been separated here for demonstration purposes",
-    "You can see the front-end request and back-end response below",
   ];
 
   const extra = (
@@ -127,7 +126,7 @@ const SendAuthCodeToBackendStep = () => {
   const stepProps = {
     statusLabel: "Send Auth Code",
     stepStatus: state.stepStatus,
-    stepLabel: "Step 3: Send Auth Code to Back-end",
+    stepLabel: "Step 3*: Client Front-end Sends Auth Code to Back-end",
     flowIcons: {
       source: {
         icon: "frontend",
