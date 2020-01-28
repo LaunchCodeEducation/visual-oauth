@@ -84,7 +84,8 @@ export const TogglingRequestResponseCards = props => {
 
   return (
     <TogglingContent
-      buttonLabel="Request &amp; Response Info"
+      buttonSize="medium"
+      buttonLabel="Request &amp; Response Bodies"
       content={
         <RequestResponseCards
           requestData={requestData}
