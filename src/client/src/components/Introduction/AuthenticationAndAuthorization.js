@@ -1,6 +1,14 @@
 import React from "react";
-import { Header, Message, Divider, Statistic, Grid } from "semantic-ui-react";
+import {
+  Header,
+  Message,
+  Divider,
+  Statistic,
+  Grid,
+  List,
+} from "semantic-ui-react";
 
+import EasyLink from "../EasyLink";
 import TogglingContent from "../TogglingContent";
 
 const BackgroundContent = () => (
@@ -93,9 +101,30 @@ const BackgroundContent = () => (
           warning
           header="The Three Factors of Authentication"
           list={[
-            "Knowledge: Something known (a password or pin number)",
-            "Ownership: Something owned (an application, certificate or key)",
-            "Inherence: Something inherent (a fingerprint, retina mapping or other biometric source)",
+            <List.Item
+              content={
+                <span>
+                  <b>Knowledge</b>: Something known (a password, secret or pin
+                  number)
+                </span>
+              }
+            />,
+            <List.Item
+              content={
+                <span>
+                  <b>Ownership</b>: Something owned (an application, device or
+                  certificate)
+                </span>
+              }
+            />,
+            <List.Item
+              content={
+                <span>
+                  <b>Inherence</b>: Something inherent (a fingerprint, retina
+                  mapping or other biometric source)
+                </span>
+              }
+            />,
           ]}
         />
       </Grid.Row>
@@ -110,16 +139,17 @@ const BackgroundContent = () => (
                 As the name implies only one of the three factors is used to
                 prove identity.{" "}
                 <b>
-                  The single factor, while convenient, is also a single point of
-                  security failure.
+                  The single factor, while convenient, can also be a single
+                  point of security failure.
                 </b>
               </p>
               <p>
                 Most commonly used for <b>Knowledge</b>-based User
                 authentication on the internet. A username and password is sent
-                in a request to a server which verifies their information for a
-                match. This authentication strategy is convenient for Users but
-                easy to abuse if an attacker can gain access to the Knowledge.
+                in a request to a server which verifies the information matches
+                what is stored in its database. This authentication strategy is
+                convenient for Users but easy to abuse if an attacker can gain
+                access to the Knowledge.
               </p>
             </>
           }
@@ -134,21 +164,26 @@ const BackgroundContent = () => (
             <>
               <p>
                 MFA is a more robust form of authentication because it utilizes
-                2 (or more) mechanisms to prove identity. It is an increasingly
-                prevalent form of authentication in modern web development.
+                2 (or more) mechanisms to prove identity. For web-based
+                authentication the third <b>Inherence</b> form is not usually
+                feasible to implement. But <b>Two-Factor Authentication</b> is
+                increasingly prevalent in modern web development.
               </p>
               <p>
-                However, it is less convenient for Users so it is offered as an
-                option (that you should always take). For web-based
-                authentication the third <b>Inherence</b> form is not usually
-                feasible to implement.
+                However, it is less convenient for Users than a single Knowledge
+                factor so it is usually offered as an option{" "}
+                <b>(that you should always use for important accounts)</b>.
               </p>
               <p>
                 A common example of MFA on the web involves a user submitting
                 their login credentials along with <b>something Owned</b>. The
-                Known credentials are coupled with an{" "}
-                <b>Authenticator Application</b> or a code sent in a cell phone
-                text message.
+                Known credentials can be coupled with a{" "}
+                <b>
+                  <EasyLink url="https://authy.com/">
+                    Time-Based Authenticator Application (non-affiliated)
+                  </EasyLink>
+                </b>{" "}
+                or a code sent in a cell phone text message.
               </p>
             </>
           }
@@ -200,13 +235,21 @@ const BackgroundContent = () => (
       <Grid.Row>
         <p>
           Scopes are categorized broadly for certain types of data. They can
-          then be sub-categorized with the types of access like reading or
-          writing often described in terminology relative to the data. For
-          example, GitHub's <code>repo:invite</code> scope allows control of
-          repo collaboration invitations. These scopes are then be stored and
-          associated with a requesting entity. Scopes can be assigned and
-          removed from an entity as needed to provide fluid control over data
-          access.
+          then be sub-categorized with the <b>degree</b> of access to that data
+          like reading or writing. These sub-categories are often described in
+          terminology relative to the data. For example, GitHub's{" "}
+          <b>
+            <code>repo:invite</code>
+          </b>{" "}
+          scope allows read and write access to collaborator invitations of a
+          repo.
+        </p>
+        <p>
+          Scopes can range from broad to narrowly defined depending on how the
+          service defines them. They are stored and associated with a requesting
+          entity to control what sort of access it as. Scopes can be assigned
+          and removed from an entity as needed to provide fluid and fine-grained
+          control over data access.
         </p>
       </Grid.Row>
       <Grid.Row centered>

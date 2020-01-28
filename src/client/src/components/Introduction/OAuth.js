@@ -9,18 +9,15 @@ const OAuthContent = () => (
     <Grid padded container>
       <Grid.Row>
         <p>
-          OAuth is{" "}
-          <EasyLink url="https://oauth.net/2/" label="a web specification" />{" "}
-          that describes a process for secure delagation of access to a User's
-          data between services. OAuth is at the heart of most User interactions
-          on the modern web. In fact you have likely used OAuth many times
-          before without realizing it!
+          OAuth is at the heart of most User interactions on the modern web. In
+          fact you have likely used OAuth many times before without realizing
+          it!
         </p>
         <p>
-          If the terms <b>Authentication and Authorization</b> sound foreign to
-          you then now would be a good time to visit the Authentication &
-          Authorization section above. Otherwise you are ready to learn about
-          OAuth.
+          If the terms <b>Authentication</b> or <b>Authorization and Scopes</b>{" "}
+          sound foreign to you then now would be a good time to visit the
+          Authentication & Authorization section above. Otherwise you are ready
+          to learn about OAuth.
         </p>
       </Grid.Row>
 
@@ -34,15 +31,15 @@ const OAuthContent = () => (
               <>
                 <p>
                   A protocol that allows a User to securely <b>authorize</b> the
-                  delegation of access to their data existing on one service to
-                  another service on the internet.
+                  delegation and <b>scope</b> of access to their data from one
+                  service to another on the internet.
                 </p>
                 <Grid centered padded>
                   <Statistic size="tiny">
                     <Statistic.Label>Plain English</Statistic.Label>
                     <Statistic.Value>
-                      "a process for a User to control how their data in one
-                      service can be accessed by another independent service"
+                      "a procedure for a User to control how their data on one
+                      service can be used by another"
                     </Statistic.Value>
                   </Statistic>
                 </Grid>
@@ -61,16 +58,24 @@ const OAuthContent = () => (
             enough on its own and these added complexities only add insult to
             injury. So we will simplify our definitions and explanations for the
             purpose of this guide. After reading, and experiencing, OAuth you
-            will have a solid foundation to take a deeper dive into the details.
+            will have a solid foundation to take{" "}
+            <EasyLink
+              url="https://oauth.net/2/"
+              label="a deeper dive into the details"
+            />
+            .
           </p>
 
           <p>
             OAuth is an interaction involving a <b>User</b> and two services -
-            the <b>Provider</b> and the <b>Client</b>. Note that the Client can
-            sometimes be referred to as an <b>App</b> or a <b>Client App</b>.
-            But these do not necessarily mean a desktop or mobile application.
-            We will try to stay consistent by referring to it as a Client
-            throughout this guide.
+            the <b>Provider</b> and the <b>Client</b>. Note that the OAuth
+            Client can sometimes be referred to as an{" "}
+            <b>App, Client App or OAuth App</b>. But these labels do not
+            necessarily refer to a desktop or mobile app[lication]. Most Clients
+            are
+            <b>web applications</b> like the site you are on now. We will keep
+            things simple and try to refer to it as just a Client throughout
+            this guide.
           </p>
         </>
       </Grid.Row>
@@ -85,8 +90,9 @@ const OAuthContent = () => (
                 A main service the User has registered and created credentials
                 for. The Provider holds a User's profile information and any
                 other data associated with its service. In other words Providers
-                are the origin of the User data the <b>Client</b> has interest
-                in.
+                store the User data a <b>Client</b> has interest in. Providers
+                manage sharing access to data for Clients authorized by the
+                User.
               </p>
             }
           />
@@ -129,10 +135,11 @@ const OAuthContent = () => (
                 .
               </p>
               <p>
-                In exploring OAuth we will label these as the{" "}
-                <b>Client Front-end (Browser)</b> and{" "}
-                <b>Client Back-end (Server)</b> to avoid ambiguity in
-                identifying the roles each half of the Client are playing.
+                When this detail is worth distinguishing we will label them as
+                the <b>Client Front-end (Browser)</b> and{" "}
+                <b>Client Back-end (Server)</b>. This is not to confuse you but
+                to avoid ambiguity in identifying the roles each half of the
+                Client are playing during the relevant steps.
               </p>
             </>
           }
@@ -247,32 +254,28 @@ const OAuthContent = () => (
         <Header size="medium" content="The OAuth Solution" />
 
         <p>
-          In both these scenarios we see{" "}
-          <b>
-            three players who are in need of a way to share information securely
-            by delegating access to data.
-          </b>
+          In both of these scenarios we see two services who need a way for a
+          User to <b>delegate access to their data</b>. The User could give
+          their Provider credentials to the Client to let it log in and access
+          all of their Provider data directly. But while this would be simple
+          and convenient for the User it comes at too great a cost in security.
         </p>
 
         <p>
-          The User could give their Provider credentials directly to the Client
-          to let it log in and acess all of their Provider data. But we just
-          learned about how important it is for a User to protect their
-          authentication credentials. While it would be quick and convenient to
-          share these credentials it comes at too great a cost in security. Not
-          only would the User be exposing their username and password to a third
-          party but they would also be giving implicit authorization to the
-          Client to do <b>anything it wants</b> to the data once it logs in.{" "}
+          Not only would the User be exposing their username and password to a
+          third party but they would also be giving{" "}
+          <b>implicit authorization</b> to the Client for it to do{" "}
+          <b>anything it wants</b> to the data once it logs in.{" "}
           <b>This is clearly neither a safe nor acceptable mechanism!</b>
         </p>
 
         <p>
           OAuth is the solution to these problems because it allows for a User
-          to securely delegate specific access of its Provider data to a Client.
-          It allows for a Client to request <b>scoped</b> access to the User's
-          Provider data and allows the User to review and <b>authorize</b> this
-          request. All without ever requiring the User to expose their
-          credentials!
+          to <b>securely delegate specific access</b> of their Provider data to
+          a Client. A Client can request <b>scoped</b> access to a User's
+          Provider data. The User can then review and <b>authorize</b>, or
+          reject, this request. All without ever requiring the User to expose
+          their credentials!
         </p>
       </Grid.Row>
 
@@ -303,10 +306,9 @@ const OAuthContent = () => (
         <p>
           An Access Token is a string that is used by the Provider to authorize
           the requests issued by the Client. It can be in either an{" "}
-          <b>Opaque</b> or <b>Signed</b>
-          format. In both cases the Access Token's validity and the context of
-          the request are verified by the Provider in determining whether the
-          request will be fulfilled.
+          <b>Opaque</b> or <b>Signed</b> format. In both cases the Access
+          Token's validity and the context of the request are verified by the
+          Provider in determining whether the request will be fulfilled.
         </p>
       </Grid.Row>
 
@@ -370,12 +372,15 @@ const OAuthContent = () => (
         </p>
         <p>
           In the ACGF the Client has its own identity credentials which it uses
-          to authenticate with the Provider. These credentials called the{" "}
-          <b>Client ID</b> and <b>Client Secret</b> behave just like a username
-          and password. The Provider associates the scopes granted by the User
-          to the Client by its unique Client ID. It then uses the Access Token
-          whenever the Client makes a request for User data to look up these
-          scopes and authorize the request.
+          to identify itself with the Provider in the first and final steps of
+          the flow. These credentials called the <b>Client ID</b> and{" "}
+          <b>Client Secret</b> behave just like a username and password.
+        </p>
+        <p>
+          The Provider associates the scopes granted by the User to the Client
+          by its unique Client ID. When a Client makes a request using the
+          Access Token its associated scopes are used to determine
+          authorization. Below is a high-level overview of the ACGF.
         </p>
       </Grid.Row>
 
@@ -385,12 +390,12 @@ const OAuthContent = () => (
           header="Authorization Code Grant Flow"
           list={[
             "The Client registers itself with the Provider to get its own authenticating credentials (Client ID and Secret)",
-            "The Client creates a link to the Provider page for requesting access from the User",
-            "The User authenticates themselves with the Provider and is sent to a permissions page",
-            "The Provider page displays the permissions (scopes) the Client is requesting for the User to review",
-            "The Provider generates a temporary Authorization Code",
+            "The Client creates a unique link (using its Client ID) to the Provider page for requesting access from the User",
+            "The User authenticates themselves with the Provider and is sent to a permissions page specific to the Client",
+            "The Provider page displays the permissions (scopes) the Client is requesting for the User to review and accept",
+            "The Provider generates a temporary Authorization Code bound to the User, Client and permitted scopes",
             "The User accepts the permissions and is redirected back to the Client with the Authorization Code in a query string",
-            "The Client exchanges the Authorization Code along with its credentials with the Provider",
+            "The Client authenticates itself and sends the Authorization Code to the Provider",
             "The Provider generates an Access Token and sends it back in its response to the Client",
           ]}
         />
