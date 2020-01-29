@@ -1,11 +1,11 @@
 import React, { useState } from "react";
+import { Grid } from "semantic-ui-react";
 
 import Step1 from "./1-AuthenticateAndAuthorize";
 import Step2 from "./2-Redirect";
-import Step3 from "./3-SendAuthCodeToBackend";
-import Step4 from "./4-ExchangeCodeForToken";
+import Step3 from "./2.5-SendAuthCodeToBackend";
+import Step4 from "./3-ExchangeForAccessToken";
 import UseAccessToken from "./UseAccessToken";
-import { Grid } from "semantic-ui-react";
 
 const VisualOAuth = () => {
   const [oAuthStepsAreComplete, setStepsComplete] = useState(false);
@@ -16,6 +16,7 @@ const VisualOAuth = () => {
       <Step1 />
       <Step2 />
       <Step3 />
+      {/* reports back the step status to control display of the gif */}
       <Step4 reportStepStatus={setStepsComplete} />
 
       {/* display once OAuth Flow is complete */}
