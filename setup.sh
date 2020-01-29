@@ -28,7 +28,7 @@ else
   printf "\ncreating API env file at src/api/.env\n"
 
 cat <<- EOF > src/api/.env
-CLIENT_DOMAIN=http://localhost:3000
+CLIENT_ORIGIN=http://localhost:3000
 
 GITHUB_CLIENT_ID=$client_id
 GITHUB_CLIENT_SECRET=$client_secret
