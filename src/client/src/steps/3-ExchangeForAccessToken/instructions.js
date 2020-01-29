@@ -1,40 +1,29 @@
-import React, { useState } from "react";
+import React from "react";
+import PropTypes from "prop-types";
 import { Card, Icon, Button, Divider, Message } from "semantic-ui-react";
 
-import { extractQsParams } from "../utils";
+import { stepFetchRequest } from "../../utils";
+import stepIcons from "../../components/Step/StepIcon";
+import { StepInstruction } from "../../components/Step/StepMessage";
+import { TogglingRequestResponseCards } from "../../components/RequestResponseCards";
 
-import Step from "../components/Step";
-import stepIcons from "../components/Step/StepIcon";
-import { TogglingRequestResponseCards } from "../components/RequestResponseCards";
-import { StepInstruction } from "../components/Step/StepMessage";
+const instructionPropTypes = {
+  authCode: PropTypes.string,
+  responseBody: PropTypes.object,
+  networkError: PropTypes.number,
+  showRequestCards: PropTypes.bool,
+  responseStatusCode: PropTypes.number,
+  stepStatus: PropTypes.oneOf([null, true, false]),
+};
 
-const getAccessToken = async (state, setState) => {
-  const tokenEndpoint = `${process.env.REACT_APP_API_DOMAIN}/oauth/access_token`;
+export const getAccessToken = (state, setState) => {
+  const { authCode } = state;
 
-  const response = await fetch(tokenEndpoint, {
-    method: "POST",
-    body: JSON.stringify({ code: state.authCode }),
-    headers: {
-      "Content-Type": "application/json",
-    },
-  }).catch(() =>
-    setState({
-      ...state,
-      stepStatus: false,
-      networkError:
-        "Failed to connect to back-end server. Check that the server is running and that it has configured CORS to accept requests from this domain",
-    }),
-  );
-
-  if (!response) return; // network error
-
-  const responseBody = await response.json();
-
-  return setState({
-    ...state,
-    responseBody,
-    stepStatus: response.ok,
-    responseStatusCode: response.status,
+  return stepFetchRequest({
+    state,
+    setState,
+    endpoint: "access_token",
+    body: { code: authCode },
   });
 };
 
@@ -55,7 +44,7 @@ const GetAccessTokenButton = props => {
   );
 };
 
-const StepRequestResponseCards = props => {
+const RequestResponseCards = props => {
   const { responseBody, responseStatusCode } = props;
 
   const { sent, received, error } = responseBody;
@@ -109,7 +98,7 @@ const StepRequestResponseCards = props => {
   );
 };
 
-const ExchangeCodeForTokenStepInstructions = props => {
+export const ExchangeCodeForTokenStepInstructions = props => {
   const { state } = props;
 
   const instructions = [
@@ -123,7 +112,7 @@ const ExchangeCodeForTokenStepInstructions = props => {
     <>
       <Divider hidden />
       <GetAccessTokenButton {...props} />
-      {state.responseBody && <StepRequestResponseCards {...state} />}
+      {state.responseBody && <RequestResponseCards {...state} />}
       {state.networkError && (
         <Message
           error
@@ -138,50 +127,4 @@ const ExchangeCodeForTokenStepInstructions = props => {
   return <StepInstruction list={instructions} extra={extra} />;
 };
 
-const useAccessTokenExchangeState = reportStepStatus => {
-  const [state, setStateBase] = useState({
-    stepStatus: null,
-    responseBody: null,
-    networkError: null,
-    showRequestCards: false,
-    responseStatusCode: null,
-    authCode: extractQsParams().code,
-  });
-
-  const setStateWrapper = state => {
-    reportStepStatus(state.stepStatus);
-    return setStateBase(state);
-  };
-
-  return [state, setStateWrapper];
-};
-
-const ExchangeCodeForTokenStep = props => {
-  const { reportStepStatus } = props;
-
-  const [state, setState] = useAccessTokenExchangeState(reportStepStatus);
-
-  const stepProps = {
-    stepNumber: 4,
-    stepStatus: state.stepStatus,
-    statusLabel: "Request Access Token",
-    stepLabel: "Step 4: Client Back-end Exchanges Auth Code For Access Token",
-    flowIcons: {
-      source: {
-        icon: "backend",
-      },
-      target: {
-        icon: "provider",
-      },
-    },
-    // stepCode: <ExchangeCodeForTokenStepCode />,
-    // stepDescription: <RedirectStepDescription />,
-    stepInstruction: (
-      <ExchangeCodeForTokenStepInstructions state={state} setState={setState} />
-    ),
-  };
-
-  return <Step {...stepProps} />;
-};
-
-export default ExchangeCodeForTokenStep;
+ExchangeCodeForTokenStepInstructions.propTypes = instructionPropTypes;
