@@ -19,8 +19,8 @@ const ToolExplanationContent = () => (
           titles that serve as a high level description of the action taking
           place. On the left side of each step is a simple diagram showing the{" "}
           <b>source</b> and <b>destination</b> player involved in the step. You
-          can start by scrolling through the titles and diagrams to lay a
-          foundation before getting hands-on with the instructions.
+          can start by scrolling through the titles and diagrams to get your
+          bearings before getting hands-on with the instructions.
         </p>
       </Grid.Row>
 

@@ -72,10 +72,9 @@ const OAuthContent = () => (
             Client can sometimes be referred to as an{" "}
             <b>App, Client App or OAuth App</b>. But these labels do not
             necessarily refer to a desktop or mobile app[lication]. Most Clients
-            are
-            <b>web applications</b> like the site you are on now. We will keep
-            things simple and try to refer to it as just a Client throughout
-            this guide.
+            are <b>web applications</b> like the site you are on now. We will
+            keep things simple and try to refer to it as just a Client
+            throughout this guide.
           </p>
         </>
       </Grid.Row>
@@ -89,10 +88,10 @@ const OAuthContent = () => (
               <p>
                 A main service the User has registered and created credentials
                 for. The Provider holds a User's profile information and any
-                other data associated with its service. In other words Providers
-                store the User data a <b>Client</b> has interest in. Providers
-                manage sharing access to data for Clients authorized by the
-                User.
+                other data associated with its service. In other words,
+                Providers have the User data a <b>Client</b> wants to use.
+                Providers manage sharing access to data for Clients authorized
+                by the User.
               </p>
             }
           />
@@ -122,7 +121,7 @@ const OAuthContent = () => (
             <>
               <p>
                 In modern web development applications are often split between a
-                front-end (client) and back-end (API). This{" "}
+                front-end (UI client) and back-end (API). This{" "}
                 <b>multi-host architecture</b> has numerous benefits but can
                 also be confusing in the context of OAuth!
               </p>
@@ -135,8 +134,8 @@ const OAuthContent = () => (
                 .
               </p>
               <p>
-                When this detail is worth distinguishing we will label them as
-                the <b>Client Front-end (Browser)</b> and{" "}
+                When this detail is worth distinguishing we will label the
+                Client as the <b>Client Front-end (Browser)</b> and{" "}
                 <b>Client Back-end (Server)</b>. This is not to confuse you but
                 to avoid ambiguity in identifying the roles each half of the
                 Client are playing during the relevant steps.
@@ -302,13 +301,26 @@ const OAuthContent = () => (
           the permitted User data from the Provider. The Client may use the
           Access Token for as long as the data access remains granted.
         </p>
+      </Grid.Row>
 
+      <Grid.Row>
+        <Message
+          info
+          list={[
+            "Every Access Token is unique to the composite of the Client, the User and the scopes they have granted",
+            "If any of these elements change then the OAuth flow must be used for a new Access Token to be granted",
+          ]}
+        />
+      </Grid.Row>
+
+      <Grid.Row>
         <p>
           An Access Token is a string that is used by the Provider to authorize
           the requests issued by the Client. It can be in either an{" "}
-          <b>Opaque</b> or <b>Signed</b> format. In both cases the Access
-          Token's validity and the context of the request are verified by the
-          Provider in determining whether the request will be fulfilled.
+          <b>Opaque</b> or <b>Signed</b> format. In both formats the Access
+          Token's validity and the requested access are verified by the Provider
+          to determine whether the request will be fulfilled. The formats differ
+          in their storage and verification mechanisms.
         </p>
       </Grid.Row>
 
@@ -319,11 +331,11 @@ const OAuthContent = () => (
             compact
             header="Opaque Access Token"
             list={[
+              "Does not have an expiration",
               "A random string persisted by the Provider in a token database",
               "The Access Token is looked up on every request issued by the Client",
               "The lookup determines whether the Client's request is authorized depending on permitted scopes associated with it",
               "Revocation of access (by the User or Provider) is instantaneous through removing the identifier from the token database",
-              "Does not have an expiration",
               "The need for constant lookups trades scalability for immediate power of revocation",
             ]}
           />
@@ -334,10 +346,10 @@ const OAuthContent = () => (
             compact
             header="Signed Access Token"
             list={[
-              "A JWT formatted string containing the scopes permitted to the requesting Client",
-              "Digitally signed by the Provider to prove authenticity without requiring persistence or lookup when used",
               "Usually has a short period of validity (expiration time)",
-              "Revocation of access (by the User or Provider) is fulfilled when the last issued Access Token expires",
+              "A JWT formatted string containing information about the User, the Client and the permitted scopes",
+              "Digitally signed by the Provider to prove authenticity without requiring persistence or lookup during usage",
+              "Revocation of access (by the User or Provider) is limited to the lifetime of the Access Token. Revocation can only be fulfilled when the most recent Access Token expires",
               "New Access Tokens are issued through the use of a Refresh Token when the previous Access Token has expired",
             ]}
           />
@@ -358,29 +370,32 @@ const OAuthContent = () => (
           </a>
           , or <b>flows</b>, for supporting many different authorization use
           cases from single and multi-host web applications to mobile
-          applications. All of the flows conclude with the creation of the
-          Access Token. These flows differ in their mechanisms, and levels of
+          applications. These flows differ in their mechanisms, and levels of
           security, and should be chosen depending on the design of the Client.
+          However, all of the flows conclude with the Provider creating and
+          granting an Access Token to the Client.
         </p>
 
         <p>
-          The most common flow used by web developers is the{" "}
-          <b>Authorization Code Grant Flow</b> (ACGF). This flow is used in
-          multi-host web applications that serve their <b>Front-end (client)</b>{" "}
-          and <b>Back-end (API)</b> separately. Like the Visual OAuth Client you
-          are using right now!
+          By far the most common OAuth flow used by web developers these days is
+          the <b>Authorization Code Grant Flow</b> (ACGF). This flow is the most
+          complex but also the most secure. In particular the ACGF is the best
+          flow choice for using OAuth with multi-host Clients that serve their{" "}
+          <b>Front-end (UI client)</b> and <b>Back-end (API)</b> separately.
+          Like the Visual OAuth Client you are using right now!
         </p>
         <p>
           In the ACGF the Client has its own identity credentials which it uses
           to identify itself with the Provider in the first and final steps of
           the flow. These credentials called the <b>Client ID</b> and{" "}
-          <b>Client Secret</b> behave just like a username and password.
+          <b>Client Secret</b> are an example of Knowledge-based authentication
+          and behave just like a username and password.
         </p>
         <p>
-          The Provider associates the scopes granted by the User to the Client
-          by its unique Client ID. When a Client makes a request using the
-          Access Token its associated scopes are used to determine
-          authorization. Below is a high-level overview of the ACGF.
+          The Provider associates the scopes granted by the User and the Access
+          Token to the Client by its unique Client ID. When a Client makes a
+          request using the Access Token its associated scopes are used to
+          determine authorization. Below is a high-level overview of the ACGF.
         </p>
       </Grid.Row>
 
@@ -390,13 +405,13 @@ const OAuthContent = () => (
           header="Authorization Code Grant Flow"
           list={[
             "The Client registers itself with the Provider to get its own authenticating credentials (Client ID and Secret)",
-            "The Client creates a unique link (using its Client ID) to the Provider page for requesting access from the User",
-            "The User authenticates themselves with the Provider and is sent to a permissions page specific to the Client",
+            "The Client creates a unique link (using its Client ID) to the Provider page for requesting data access from the User",
+            "The User authenticates themself with the Provider and is sent to a permissions page specific to the Client (identified by its Client ID)",
             "The Provider page displays the permissions (scopes) the Client is requesting for the User to review and accept",
             "The Provider generates a temporary Authorization Code bound to the User, Client and permitted scopes",
-            "The User accepts the permissions and is redirected back to the Client with the Authorization Code in a query string",
+            "The User is then redirected back to the Client with the Authorization Code in a query string",
             "The Client authenticates itself and sends the Authorization Code to the Provider",
-            "The Provider generates an Access Token and sends it back in its response to the Client",
+            "The Provider generates an Access Token, unique to the User granted scopes and the Client, and sends it back in its response",
           ]}
         />
       </Grid.Row>

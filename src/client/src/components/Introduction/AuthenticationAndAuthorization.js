@@ -102,6 +102,7 @@ const BackgroundContent = () => (
           header="The Three Factors of Authentication"
           list={[
             <List.Item
+              key="knowledge-factor"
               content={
                 <span>
                   <b>Knowledge</b>: Something known (a password, secret or pin
@@ -110,6 +111,7 @@ const BackgroundContent = () => (
               }
             />,
             <List.Item
+              key="ownership-factor"
               content={
                 <span>
                   <b>Ownership</b>: Something owned (an application, device or
@@ -118,6 +120,7 @@ const BackgroundContent = () => (
               }
             />,
             <List.Item
+              key="inherence-factor"
               content={
                 <span>
                   <b>Inherence</b>: Something inherent (a fingerprint, retina
@@ -132,7 +135,7 @@ const BackgroundContent = () => (
       <Grid.Row>
         <Message
           info
-          header="Single-Factor: Basic Authentication"
+          header="Single-Factor Authentication"
           content={
             <>
               <p>
@@ -222,7 +225,7 @@ const BackgroundContent = () => (
                   <Statistic size="tiny">
                     <Statistic.Label>Plain English</Statistic.Label>
                     <Statistic.Value>
-                      "A rule for how a type of data can be used"
+                      "A lookup rule for how a type of data can be used"
                     </Statistic.Value>
                   </Statistic>
                 </Grid>
@@ -234,10 +237,12 @@ const BackgroundContent = () => (
 
       <Grid.Row>
         <p>
-          Scopes are categorized broadly for certain types of data. They can
-          then be sub-categorized with the <b>degree</b> of access to that data
-          like reading or writing. These sub-categories are often described in
-          terminology relative to the data. For example, GitHub's{" "}
+          Scopes are categorized according to the{" "}
+          <b>resources (types of data)</b> a service exposes. In some cases
+          scopes are also sub-categorized with the <b>degree</b> of access to
+          the given resource such as reading or writing. These sub-categories
+          are often described in terminology relative to the data. For example,
+          GitHub's{" "}
           <b>
             <code>repo:invite</code>
           </b>{" "}
@@ -245,11 +250,11 @@ const BackgroundContent = () => (
           repo.
         </p>
         <p>
-          Scopes can range from broad to narrowly defined depending on how the
-          service defines them. They are stored and associated with a requesting
-          entity to control what sort of access it as. Scopes can be assigned
-          and removed from an entity as needed to provide fluid and fine-grained
-          control over data access.
+          Scopes can range from broad to granular depending on how the service
+          chooses to define them. They are stored in association to the resource
+          they apply to. Entities can then be associated with scopes granted to
+          them by the service. Scopes can be assigned and removed from an entity
+          as needed to provide fluid and incremental control over data access.
         </p>
       </Grid.Row>
       <Grid.Row centered>
@@ -257,16 +262,28 @@ const BackgroundContent = () => (
           warning
           header="How Scopes Are Used"
           content={
-            <>
+            <section style={{ textAlign: "left" }}>
               <p>
-                When an authenticated request is made the request details are
-                checked against the scopes assigned to the requesting entity.
+                When an entity issues a request to a service it first
+                authenticates itself. From the authentication credentials the
+                service can look up the entity and the scopes granted to it. The
+                service then compares the scopes of the requested resource to
+                the scopes granted to the entity.
               </p>
               <p>
-                If they have the required scope then the request is fulfilled.
-                Otherwise it is rejected.
+                If the entity has the scope required for the resource access
+                they have requested then they are considered <b>authorized</b>{" "}
+                and the request is fulfilled.
               </p>
-            </>
+              <p>
+                Otherwise the request is rejected. Traditionally by the service
+                responding with a{" "}
+                <b>
+                  <code>403-Forbidden</code>
+                </b>{" "}
+                status code.
+              </p>
+            </section>
           }
         />
       </Grid.Row>
