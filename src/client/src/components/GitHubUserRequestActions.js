@@ -89,7 +89,7 @@ const RequestPrivilegedUserDataForm = props => {
             type="password"
             value={accessToken}
             onChange={handleChange}
-            placeholder="granted in step 4 response"
+            placeholder="granted in step 3 response"
           />
         </Form.Field>
         <Form.Button
@@ -157,6 +157,8 @@ export const GitHubUserRequestActions = props => {
           {publicUserData && (
             <Grid.Row>
               <TogglingContent
+                buttonSize="medium"
+                buttonLabel="Public User Data"
                 content={
                   <ResponseCard
                     header="Public User Data"
@@ -164,7 +166,6 @@ export const GitHubUserRequestActions = props => {
                     responseStatusCode={publicRequestStatusCode}
                   />
                 }
-                buttonLabel="Public User Data"
               />
             </Grid.Row>
           )}
@@ -181,6 +182,7 @@ export const GitHubUserRequestActions = props => {
           {privilegedUserData && (
             <Grid.Row>
               <TogglingContent
+                buttonSize="medium"
                 buttonLabel="Privileged User Data"
                 content={
                   <ResponseCard
