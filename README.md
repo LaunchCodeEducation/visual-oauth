@@ -52,6 +52,8 @@ visual-oauth/
 ```sh
 # run this from the root directory of the repo
 $ npm run setup
+
+# you will be prompted for [GitHub Client ID] and [GitHub Client Secret] from when you registered your GitHub oauth app
 ```
 
 ## run the app
