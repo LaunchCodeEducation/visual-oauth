@@ -1,14 +1,14 @@
-Write-Output '`nYou will be prompted for your GitHub client ID and secret`n'
-Write-Output '`nThese values will be stored in src/api.env and src/client/.env`n`n'
-
-$ClientId = ReadHost -Prompt '[GitHub Client ID]: '
-$ClientSecret = ReadHost -Prompt '[GitHub Client Secret]: '
-
 $ApiOrigin = 'http://localhost:8008'
 $RedirectUri = 'http://localhost:3000/'
 
 $ApiEnvPath = 'src/api/.env'
 $ClientEnvPath = 'src/client/.env'
+
+Write-Output '`nYou will be prompted for your GitHub client ID and secret`n'
+Write-Output '`nThese values will be stored in src/api.env and src/client/.env`n`n'
+
+$ClientId = Read-Host -Prompt '[GitHub Client ID]: '
+$ClientSecret = Read-Host -Prompt '[GitHub Client Secret]: '
 
 if (Test-Path "$ClientEnvPath") {
   Write-Output '`nclient env file already exists`n'
@@ -18,7 +18,7 @@ if (Test-Path "$ClientEnvPath") {
   $ClientEnv = @"
 REACT_APP_API_DOMAIN=$ApiOrigin
 
-REACT_APP_GITHUB_AUTH_ENDPOINT=https://github.com/login/oauth/authorize?client_id=${ClientId}&redirect_uri=${$RedirectUri}&scope=read:user
+REACT_APP_GITHUB_AUTH_ENDPOINT=https://github.com/login/oauth/authorize?client_id=${ClientId}&redirect_uri=${RedirectUri}&scope=read:user
 "@
 
   Set-Content -Path "$ClientEnvPath" -Value $ClientEnv
