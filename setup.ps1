@@ -43,6 +43,12 @@ GITHUB_ACCESS_TOKEN_ENDPOINT=https://github.com/login/oauth/access_token
 
 Write-Output '`n`ninstalling API and Client dependencies`n`n'
 
-cd src/api && npm install && cd ../client && npm install
+# install api deps
+cd src/api
+npm install
+
+# install client deps
+cd ../client
+npm install
 
 Write-Output '`n`neverything is ready to go! to begin enter: npm start`n`n'
