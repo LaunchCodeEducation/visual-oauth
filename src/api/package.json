@@ -13,12 +13,12 @@
     "GITHUB_ACCESS_TOKEN_ENDPOINT": "GitHub API OAuth access token endpoint"
   },
   "scripts": {
-    "test": "npm test",
-    "env:dev": "env $(< .env)",
-    "dev": "npm run env:dev -- nodemon ."
+    "start": "node .",
+    "dev": "nodemon ."
   },
   "dependencies": {
     "axios": "^0.19.0",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1"
   },
   "devDependencies": {

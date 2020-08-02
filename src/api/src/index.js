@@ -1,3 +1,4 @@
+require("dotenv").config(); // loads .env file into process environment
 const express = require("express");
 
 const handlers = require("./handlers");
@@ -19,5 +20,5 @@ app.post("/oauth/access_token", handlers.exchangeCodeForTokensHandler);
 app.post("/oauth/user_data", handlers.privilegedUserDataHandler);
 
 //-- run the app server --//
-const PORT = process.env.PORT || 8008;
+const { PORT = 8008 } = process.env;
 app.listen(PORT, () => console.log(`app server listening on port ${PORT}`));
