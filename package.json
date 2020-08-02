@@ -6,6 +6,7 @@
   "license": "GPL-3.0",
   "scripts": {
     "setup": "bash setup.sh",
+    "setup:windows": "@powershell -ExecutionPolicy RemoteSigned -Command ./setup.ps1",
     "install:api": "cd src/api && npm install",
     "install:client": "cd src/client && npm install",
     "install": "npm run install:api && npm run install:client",
