@@ -4,14 +4,14 @@ $RedirectUri = 'http://localhost:3000/'
 $ApiEnvPath = 'src/api/.env'
 $ClientEnvPath = 'src/client/.env'
 
-Write-Output '`nYou will be prompted for your GitHub client ID and secret`n'
-Write-Output '`nThese values will be stored in src/api.env and src/client/.env`n`n'
+Write-Output "`nYou will be prompted for your GitHub client ID and secret`n"
+Write-Output "`nThese values will be stored in src/api.env and src/client/.env`n`n"
 
 $ClientId = Read-Host -Prompt '[GitHub Client ID]: '
 $ClientSecret = Read-Host -Prompt '[GitHub Client Secret]: '
 
 if (Test-Path "$ClientEnvPath") {
-  Write-Output '`nclient env file already exists`n'
+  Write-Output "`nclient env file already exists`n"
 } else {
   Write-Output "`ncreating client env file at $ClientEnvPath`n"
 
@@ -25,7 +25,7 @@ REACT_APP_GITHUB_AUTH_ENDPOINT=https://github.com/login/oauth/authorize?client_i
 }
 
 if (Test-Path "$ApiEnvPath") {
-  Write-Output '`nAPI env file already exists`n'
+  Write-Output "`nAPI env file already exists`n"
 } else {
   Write-Output "`ncreating API env file at $ApiEnvPath`n"
 
@@ -41,7 +41,7 @@ GITHUB_ACCESS_TOKEN_ENDPOINT=https://github.com/login/oauth/access_token
   Set-Content -Path "$ApiEnvPath" -Value $ApiEnv
 }
 
-Write-Output '`n`ninstalling API and Client dependencies`n`n'
+Write-Output "`n`ninstalling API and Client dependencies`n`n"
 
 # install api deps
 cd src/api
@@ -51,4 +51,4 @@ npm install
 cd ../client
 npm install
 
-Write-Output '`n`neverything is ready to go! to begin enter: npm start`n`n'
+Write-Output "`n`neverything is ready to go! to begin enter: npm start`n`n"
