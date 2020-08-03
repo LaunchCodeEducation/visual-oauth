@@ -7,8 +7,8 @@ $ClientEnvPath = 'src/client/.env'
 Write-Output "`nYou will be prompted for your GitHub client ID and secret`n"
 Write-Output "`nThese values will be stored in src/api.env and src/client/.env`n`n"
 
-$ClientId = Read-Host -Prompt '[GitHub Client ID]: '
-$ClientSecret = Read-Host -Prompt '[GitHub Client Secret]: '
+$ClientId = Read-Host -Prompt '[GitHub Client ID]'
+$ClientSecret = Read-Host -Prompt '[GitHub Client Secret]'
 
 if (Test-Path "$ClientEnvPath") {
   Write-Output "`nclient env file already exists`n"
