@@ -49,6 +49,8 @@ visual-oauth/
 
 ## set up the application
 
+### Linux and MacOS
+
 ```sh
 # run this from the root directory of the repo
 $ npm run setup
@@ -56,12 +58,43 @@ $ npm run setup
 # you will be prompted for [GitHub Client ID] and [GitHub Client Secret] from when you registered your GitHub oauth app
 ```
 
+### Windows
+
+```powershell
+# run this from the root directory of the repo
+> npm run setup:windows
+
+# you will be prompted for [GitHub Client ID] and [GitHub Client Secret] from when you registered your GitHub oauth app
+```
+
 ## run the app
+
+### Linux and MacOS
 
 ```sh
 # run this from the root directory of the repo
 $ npm run start
 ```
+
+### Windows
+
+In Windows you will need to start both the API and Client in two different PowerShell terminals.
+
+In your first PowerShell terminal:
+
+```powershell
+# run this from the root directory of the repo
+> npm run start:api
+```
+
+In your second PowerShell terminal:
+
+```powershell
+# run this from the root directory of the repo
+> npm run start:client
+```
+
+The script will automatically open your default browser. This example will not work in Microsoft Edge, or Microsoft Internet Explorer. If Edge, or IE are your default browser you will need to open a different browser and manually navigate to http://localhost:3000.
 
 > **it may take up to 30 seconds for the application to start up**
 
